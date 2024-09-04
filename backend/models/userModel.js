@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
+      minlength: [6, "Password must be at least 6 characters long"],
     },
   },
   {
@@ -28,6 +29,7 @@ userSchema.pre("save", async function (next) {
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
 userSchema.methods.matchPasswords = async function (enteredPassword) {

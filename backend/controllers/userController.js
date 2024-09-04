@@ -24,11 +24,23 @@ const authUser = expressAsyncHandler(async (req, res) => {
 // route POST /api/users
 // @access Public
 const registerUser = expressAsyncHandler(async (req, res) => {
+  const requiredFields = ["name", "email", "password"];
   const { name, email, password } = req.body;
+  requiredFields.forEach((field) => {
+    if (!req.body[field]) {
+      res.status(400);
+      throw new Error(`${field} is required`);
+    }
+  });
   const userExists = await User.findOne({ email });
+  const passwordLength = password.length;
   if (userExists) {
     res.status(400);
     throw new Error("User already exists");
+  }
+  if (passwordLength < 6) {
+    res.status(400);
+    throw new Error("Password must be at least 6 characters");
   }
   const user = await User.create({
     name,
