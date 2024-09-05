@@ -11,9 +11,13 @@ const protect = expressAsyncHandler(async (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      req.user = await User.findById(decoded.userId).select("-password");
+      req.user = await User.findById(decoded.userId).select({
+        password: 0,
+        isAdmin: 0,
+      });
       next();
     } catch (error) {
+      res.status(401);
       throw new Error("Not authorized, invalid token");
     }
   } else {

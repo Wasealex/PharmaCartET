@@ -1,10 +1,10 @@
 import expressAsyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
-// @desc Auth user/set token
-// route POST /api/users/auth
+// @desc login user/set token
+// route POST /api/users/login
 // @access Public
-const authUser = expressAsyncHandler(async (req, res) => {
+const loginUser = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -14,7 +14,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin,
+      message: `${user.name} logged in successfully`,
     });
   } else {
     res.status(401);
@@ -22,7 +22,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
   }
 });
 // @desc register a new user
-// route POST /api/users
+// route POST /api/users/signup
 // @access Public
 const registerUser = expressAsyncHandler(async (req, res) => {
   const requiredFields = ["name", "email", "password"];
@@ -54,6 +54,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      message: "User created successfully",
     });
   } else {
     res.status(400);
@@ -67,8 +68,13 @@ const logOutUser = expressAsyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
+    sameSite: "none",
+    secure: process.env.NODE_ENV !== "development",
   });
-  res.status(200).json({ message: "Logged out successfully" });
+  res.status(200).json({
+    status: "success",
+    message: "user logged out successfully",
+  });
 });
 // @desc Get user Profile
 // route GET /api/users/profile
@@ -107,7 +113,7 @@ const updateUserProfile = expressAsyncHandler(async (req, res) => {
   }
 });
 export {
-  authUser,
+  loginUser,
   registerUser,
   logOutUser,
   getUserProfile,
