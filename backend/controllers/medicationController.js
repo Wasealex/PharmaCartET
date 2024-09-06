@@ -84,10 +84,58 @@ const deleteMedication = expressAsyncHandler(async (req, res) => {
     res.status(404).send({ message: "Medication Not Found" });
   }
 });
+const getMedicationByCatagory = expressAsyncHandler(async (req, res) => {
+  const medications = await Medication.find({
+    categoryofTherapy: req.params.categoryofTherapy,
+  }); // find all medications
+  if (medications) {
+    res.send(medications);
+  } else {
+    res.status(404).send({ message: "Medication Not Found" });
+  }
+});
+const toggleFeaturedMedication = expressAsyncHandler(async (req, res) => {
+  const medication = await Medication.findById(req.params.id);
+  if (medication) {
+    medication.isFeatured = !medication.isFeatured;
+    const updatedMedication = await medication.save();
+    res.send({ message: "Medication Updated", medication: updatedMedication });
+  } else {
+    res.status(404).send({ message: "Medication Not Found" });
+  }
+});
+const getMedicationBySearch = expressAsyncHandler(async (req, res) => {
+  const search = req.query.search
+    ? {
+        name: {
+          $regex: req.query.search,
+          $options: "i",
+        },
+      }
+    : {};
+  const medications = await Medication.find({ ...search });
+  res.send(medications);
+});
+const getMedicationByFilter = expressAsyncHandler(async (req, res) => {
+  const filter = req.query.filter
+    ? {
+        categoryofTherapy: {
+          $regex: req.query.filter,
+          $options: "i",
+        },
+      }
+    : {};
+  const medications = await Medication.find({ ...filter });
+  res.send(medications);
+});
 export {
   getAllMedications,
   getMedicationById,
   addMedication,
   updateMedication,
   deleteMedication,
+  getMedicationByCatagory,
+  toggleFeaturedMedication,
+  getMedicationBySearch,
+  getMedicationByFilter,
 };
