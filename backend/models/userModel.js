@@ -16,6 +16,18 @@ const userSchema = mongoose.Schema(
       required: true,
       minlength: [6, "Password must be at least 6 characters long"],
     },
+    cartItems: [
+      {
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+        medication: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Medication",
+        },
+      },
+    ],
     isAdmin: {
       type: Boolean,
       default: false,
