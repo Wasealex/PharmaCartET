@@ -1,5 +1,5 @@
 import expressAsyncHandler from "express-async-handler";
-import Medication from "../models/medicationModel";
+import Medication from "../models/medicationModel.js";
 
 const addToCart = expressAsyncHandler(async (req, res) => {
   const user = req.user;
@@ -33,7 +33,7 @@ const deleteAllFromCart = expressAsyncHandler(async (req, res) => {
   const user = req.user;
   const { cartItems } = user;
   if (!cartItems) {
-    throw new Error("Cart is empty");
+    res.status(400).send({ message: "Cart is empty" });
   }
   user.cartItems = [];
   await user.save();
@@ -44,17 +44,19 @@ const deleteOneFromCart = expressAsyncHandler(async (req, res) => {
   const user = req.user;
   const { medicationId } = req.body;
   if (!medicationId) {
-    throw new Error("Medication ID is required");
+    res.status(400).send("Medication ID is required");
   }
   if (!user.cartItems) {
-    throw new Error("Cart is empty");
+    res.status(400).send("Cart is empty");
   }
   if (
     !user.cartItems.some(
       (item) => item.medicationId.toString() === medicationId
     )
   ) {
-    throw new Error(`Medication with ID ${medicationId} not found in cart`);
+    res
+      .status(400)
+      .send(`Medication with ID ${medicationId} not found in cart`);
   } else {
     user.cartItems = user.cartItems.filter(
       (item) => item.medicationId.toString() !== medicationId
