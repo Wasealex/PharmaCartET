@@ -1,7 +1,8 @@
+import Hero from "../components/Hero";
 const HomeScreen = () => {
   return (
     <div>
-      <h1>Home screen</h1>
+      <Hero />
     </div>
   );
 };
