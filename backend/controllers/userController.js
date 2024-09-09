@@ -68,8 +68,6 @@ const logOutUser = expressAsyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
-    sameSite: "none",
-    secure: process.env.NODE_ENV !== "development",
   });
   res.status(200).json({
     status: "success",
