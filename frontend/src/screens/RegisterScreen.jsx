@@ -7,6 +7,7 @@ import { useSignupMutation } from "../slices/usersApiSlice";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import { setCredentials } from "../slices/authSlice";
+import { CiKeyboard, CiLock, CiMail } from "react-icons/ci";
 const RegisterScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,7 +45,10 @@ const RegisterScreen = () => {
         <h1>Sign Up</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>
+              <CiKeyboard />
+              Name
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter name"
@@ -54,7 +58,10 @@ const RegisterScreen = () => {
           </Form.Group>
 
           <Form.Group controlId="email">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>
+              <CiMail />
+              Email Address
+            </Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
@@ -64,7 +71,10 @@ const RegisterScreen = () => {
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>
+              <CiLock />
+              Password
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter password"
@@ -74,7 +84,10 @@ const RegisterScreen = () => {
           </Form.Group>
 
           <Form.Group controlId="confirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
+            <Form.Label>
+              <CiLock />
+              Confirm Password
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Confirm password"

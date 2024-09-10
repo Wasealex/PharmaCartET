@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
+import { CiMail, CiLock } from "react-icons/ci";
 import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
@@ -36,7 +37,10 @@ const LoginScreen = () => {
         <h1>Sign In</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="email" className="my-3">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>
+              <CiMail />
+              Email Address
+            </Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
@@ -46,7 +50,10 @@ const LoginScreen = () => {
           </Form.Group>
 
           <Form.Group controlId="password" className="my-3">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>
+              <CiLock />
+              Password
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter password"

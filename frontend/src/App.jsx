@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      <Container className="mt-5">
+      <Container>
         <Outlet />
       </Container>
       <ToastContainer />

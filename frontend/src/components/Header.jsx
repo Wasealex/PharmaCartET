@@ -1,10 +1,12 @@
 import { Navbar, Nav, Container, NavDropdown, Badge } from "react-bootstrap";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+import { BsCart4, BsPersonCircle } from "react-icons/bs";
+import { CiLock, CiLogout } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLogoutMutation } from "../slices/usersApiSlice";
-import { logout } from "../slices/authSlice";
+import { clearCredentials } from "../slices/authSlice";
 import logo from "../assets/images/logos/Logo02.png";
 
 const Header = () => {
@@ -12,13 +14,14 @@ const Header = () => {
   const userName = userInfo?.userInfo?.name;
   const dispatch = useDispatch();
 
+  const isAdmin = userInfo?.userInfo?.isAdmin;
   const navigate = useNavigate();
 
   const [logoutApiCall] = useLogoutMutation();
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
-      dispatch(logout());
+      dispatch(clearCredentials());
       navigate("/login");
     } catch (err) {
       console.log(err);
@@ -46,15 +49,26 @@ const Header = () => {
               {userName ? (
                 <>
                   <NavDropdown title={userName} id="username" align="end">
+                    {isAdmin && (
+                      <LinkContainer to="/admin/dashboard">
+                        <NavDropdown.Item>
+                          <CiLock /> Admin Dashboard
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                    )}
                     <LinkContainer to="/profile">
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                      <NavDropdown.Item>
+                        <BsPersonCircle /> Profile
+                      </NavDropdown.Item>
                     </LinkContainer>
                     <LinkContainer to="/cart">
                       <NavDropdown.Item>
+                        <BsCart4 />
                         Cart <Badge bg="danger">1</Badge>
                       </NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>
+                      <CiLogout />
                       Logout
                     </NavDropdown.Item>
                   </NavDropdown>
