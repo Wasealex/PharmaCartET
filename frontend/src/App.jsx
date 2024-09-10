@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
-    <div>
+    <div className="App">
       <Header />
       <Container className="mt-5">
         <Outlet />

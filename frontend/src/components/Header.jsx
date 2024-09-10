@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
+import logo from "../assets/images/logos/Logo02.png";
 
 const Header = () => {
   const userInfo = useSelector((state) => state.auth);
@@ -24,24 +25,33 @@ const Header = () => {
     }
   };
   return (
-    <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+    <header className="header">
+      <Navbar
+        bg="dark"
+        variant="dark"
+        expand="lg"
+        className="justify-content-between"
+      >
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>PharmaCart</Navbar.Brand>
+            <Navbar.Brand>
+              <img src={logo} alt="PharmaCart" width="30px" />
+            </Navbar.Brand>
           </LinkContainer>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end"
+          >
+            <Nav>
               {userName ? (
                 <>
-                  <NavDropdown title={userName} id="username">
+                  <NavDropdown title={userName} id="username" align="end">
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
                     <LinkContainer to="/cart">
                       <NavDropdown.Item>
-                        Cart <Badge bg="danger">5</Badge>
+                        Cart <Badge bg="danger">1</Badge>
                       </NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>

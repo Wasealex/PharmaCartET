@@ -7,12 +7,23 @@ const Hero = () => {
       style={{ minHeight: "100vh" }}
     >
       <Card className="text-center">
-        <Card.Header>PharmaCart</Card.Header>
+        <Card.Header>
+          <h1>PharmaCart</h1>
+        </Card.Header>
         <Card.Body>
-          <Card.Title>Welcome to PharmaCart</Card.Title>
+          <Card.Title>
+            <h2>Welcome to PharmaCart</h2>
+          </Card.Title>
           <Card.Text>
-            This is a simple hero unit, a simple jumbotron-style component for
-            calling extra attention to featured content or information.
+            <h4>
+              Your one-stop online pharmacy for all your medication needs.
+            </h4>
+            <p>
+              Browse our wide range of medications, add them to your cart, and
+              checkout securely.
+            </p>
+            <p>Track your orders and view your order history with ease.</p>
+            <p>Sign up or log in to start shopping now!</p>
           </Card.Text>
           <LinkContainer to="/login">
             <Button variant="primary">Sign in</Button>
