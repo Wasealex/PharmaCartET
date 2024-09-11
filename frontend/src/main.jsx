@@ -18,6 +18,8 @@ import LoginScreen from "./screens/LoginScreen.jsx";
 import RegisterScreen from "./screens/RegisterScreen.jsx";
 import ProfileScreen from "./screens/ProfileScreen.jsx";
 import AdminScreen from "./screens/AdminScreen.jsx";
+import AddMedicationScreen from "./screens/Medications/AddMedicationScreen.jsx";
+import UpdateMedicationScreen from "./screens/Medications/UpdateMedicationScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +32,11 @@ const router = createBrowserRouter(
       </Route>
       <Route path="" element={<AdminRoute />}>
         <Route path="/admin/dashboard" element={<AdminScreen />} />
+        <Route path="/admin/add-medication" element={<AddMedicationScreen />} />
+        <Route
+          path="/admin/update-medication/:id"
+          element={<UpdateMedicationScreen />}
+        />
       </Route>
     </Route>
   )

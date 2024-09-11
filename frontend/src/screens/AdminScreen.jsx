@@ -1,9 +1,10 @@
 import React from "react";
+import MedicationScreen from "./MedicationScreen";
 
 const AdminScreen = () => {
   return (
     <div>
-      <h1>Admin Screen</h1>
+      <MedicationScreen />
     </div>
   );
 };

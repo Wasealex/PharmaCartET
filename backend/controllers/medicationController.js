@@ -3,34 +3,18 @@ import expressAsyncHandler from "express-async-handler";
 
 const getAllMedications = expressAsyncHandler(async (req, res) => {
   const medications = await Medication.find({}); // find all medications
-  res.send(medications);
+  res.status(200).json({ medications });
 });
 const getMedicationById = expressAsyncHandler(async (req, res) => {
   const medication = await Medication.findById(req.params.id);
   if (medication) {
-    res.send(medication);
+    res.status(200).json({ medication });
   } else {
     res.status(404).send({ message: "Medication Not Found" });
   }
 });
 const addMedication = expressAsyncHandler(async (req, res) => {
-  const {
-    name,
-    brand,
-    description,
-    overTheCounter,
-    dosageForm,
-    sideEffects,
-    preguntaCategory,
-    image,
-    price,
-    rating,
-    numReviews,
-    categoryofAnatomy,
-    categoryofTherapy,
-    countInStock,
-    isFeatured,
-  } = req.body;
+  const { name, description, price } = req.body;
   const medicationExists = await Medication.findOne({ name });
   if (medicationExists) {
     res.status(400);
@@ -38,20 +22,8 @@ const addMedication = expressAsyncHandler(async (req, res) => {
   } else {
     const medication = await Medication.create({
       name,
-      brand,
       description,
-      overTheCounter,
-      dosageForm,
-      sideEffects,
-      preguntaCategory,
-      image,
       price,
-      rating,
-      numReviews,
-      categoryofAnatomy,
-      categoryofTherapy,
-      countInStock,
-      isFeatured,
     });
     if (medication) {
       res.status(201).send(medication);
@@ -67,7 +39,6 @@ const updateMedication = expressAsyncHandler(async (req, res) => {
     medication.name = req.body.name || medication.name;
     medication.description = req.body.description || medication.description;
     medication.price = req.body.price || medication.price;
-    medication.countInStock = req.body.countInStock || medication.countInStock;
 
     const updatedMedication = await medication.save();
     res.send({ message: "Medication Updated", medication: updatedMedication });

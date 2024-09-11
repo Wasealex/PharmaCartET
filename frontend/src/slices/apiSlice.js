@@ -6,6 +6,7 @@ export const apiSlice = createApi({
   tagTypes: ["User", "Medication"],
   endpoints: (builder) => ({
     getUser: builder.query({}),
+    getMedication: builder.query({}),
   }),
 });
 
