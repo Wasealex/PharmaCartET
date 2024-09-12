@@ -55,8 +55,8 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      message: "User created successfully",
       isAdmin: user.isAdmin,
+      message: "User created successfully",
     });
   } else {
     res.status(400);

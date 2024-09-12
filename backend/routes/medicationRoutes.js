@@ -13,7 +13,7 @@ import {
 import { protect, adminUser } from "../middleware/authMiddleWare.js";
 const router = express.Router();
 
-router.get("/all", protect, adminUser, getAllMedications);
+router.get("/all", protect, getAllMedications);
 router.get("/:id", protect, getMedicationById);
 router.get("/catagory/:catagory", protect, getMedicationByCatagory);
 router.get("/search", protect, getMedicationBySearch);

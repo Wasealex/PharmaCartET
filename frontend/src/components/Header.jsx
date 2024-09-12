@@ -27,25 +27,23 @@ const Header = () => {
       console.log(err);
     }
   };
+
   return (
     <header className="header">
-      <Navbar
-        bg="dark"
-        variant="dark"
-        expand="lg"
-        className="justify-content-between"
-      >
+      <Navbar bg="dark" variant="dark" expand="lg" className="shadow-sm">
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <img src={logo} alt="PharmaCart" width="30px" />
+              <img src={logo} alt="PharmaCart" width="30" className="me-2" />
+              PharmaCart
             </Navbar.Brand>
           </LinkContainer>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
             id="basic-navbar-nav"
             className="justify-content-end"
           >
-            <Nav>
+            <Nav className="align-items-center">
               {userName ? (
                 <>
                   <NavDropdown title={userName} id="username" align="end">

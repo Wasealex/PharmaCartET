@@ -43,8 +43,8 @@ const MedicationScreen = () => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
+            <th className="d-none d-md-table-cell">Description</th>
+            <th className="d-none d-md-table-cell">Price</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -52,21 +52,26 @@ const MedicationScreen = () => {
           {medications.map((medication) => (
             <tr key={medication._id}>
               <td>{medication.name}</td>
-              <td>{medication.description}</td>
-              <td>${medication.price.toFixed(2)}</td>
+              <td className="d-none d-md-table-cell">
+                {medication.description}
+              </td>
+              <td className="d-none d-md-table-cell">
+                ${medication.price.toFixed(2)}
+              </td>
               <td>
                 <Button
                   variant="success"
                   onClick={() =>
                     navigate(`/admin/update-medication/${medication._id}`)
                   }
-                  className="mr-2"
+                  className="mr-2 d-block d-md-inline-block"
                 >
                   Edit
                 </Button>
                 <Button
                   variant="danger"
                   onClick={() => handleDelete(medication._id)}
+                  className="d-block d-md-inline-block"
                 >
                   Delete
                 </Button>

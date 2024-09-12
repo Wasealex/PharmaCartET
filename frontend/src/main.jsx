@@ -20,6 +20,7 @@ import ProfileScreen from "./screens/ProfileScreen.jsx";
 import AdminScreen from "./screens/AdminScreen.jsx";
 import AddMedicationScreen from "./screens/Medications/AddMedicationScreen.jsx";
 import UpdateMedicationScreen from "./screens/Medications/UpdateMedicationScreen.jsx";
+import CartScreen from "./screens/CartScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route path="/signup" element={<RegisterScreen />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/cart" element={<CartScreen />} />
       </Route>
       <Route path="" element={<AdminRoute />}>
         <Route path="/admin/dashboard" element={<AdminScreen />} />
