@@ -9,8 +9,34 @@ export const cartApiSlice = apiSlice.injectEndpoints({
         body: { id },
       }),
     }),
+    deleteCart: builder.mutation({
+      query: (id) => ({
+        url: `/api/cart/${id}`,
+        method: "DELETE",
+        body: { id },
+      }),
+    }),
+    updateCart: builder.mutation({
+      query: ({ id, quantity }) => ({
+        url: `/api/cart/${id}`,
+        method: "PUT",
+        body: { quantity },
+      }),
+    }),
+    clearCart: builder.mutation({
+      query: () => ({
+        url: "/api/cart/deleteAll",
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in functional components
-export const { useGetCartQuery, useAddToCartMutation } = cartApiSlice;
+export const {
+  useGetCartQuery,
+  useAddToCartMutation,
+  useDeleteCartMutation,
+  useUpdateCartMutation,
+  useClearCartMutation,
+} = cartApiSlice;
