@@ -27,7 +27,6 @@ const CartDetails = () => {
     try {
       addToCart(itemId);
       toast.success("Item added to cart");
-      window.location.reload();
       navigate("/cart");
     } catch (error) {
       toast.error("Error adding item to cart");
@@ -36,14 +35,12 @@ const CartDetails = () => {
   const handleUpdateQuantity = (itemId, quantity) => {
     updateItem({ id: itemId, quantity });
     toast.success("Quantity updated successfully");
-    window.location.reload();
     navigate("/cart");
   };
 
   const handleDelete = (itemId) => {
     deleteItem(itemId);
     toast.success("Item deleted successfully");
-    window.location.reload();
     navigate("/cart");
   };
 
@@ -78,6 +75,19 @@ const CartDetails = () => {
       <Button variant="danger" onClick={handleClearCart} className="mb-3 ms-3">
         Clear Cart
       </Button>
+      <br />
+      <h2>Total: ${total.toFixed(2)}</h2>
+      <Button
+        variant="success"
+        onClick={() => navigate("/checkout")}
+        className="mb-3 ms-3"
+      >
+        Checkout
+      </Button>
+
+      {cart?.length === 0 && <h1 className="text-center">Cart is empty</h1>}
+
+      <br />
 
       <Table striped bordered hover>
         <thead>

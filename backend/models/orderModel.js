@@ -35,7 +35,6 @@ const orderSchema = new mongoose.Schema(
     },
     chappaSessionId: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
