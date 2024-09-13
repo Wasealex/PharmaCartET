@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLogoutMutation } from "../slices/usersApiSlice";
+import { useGetCartQuery } from "../slices/cartApiSlice";
 import { clearCredentials } from "../slices/authSlice";
 import logo from "../assets/images/logos/Logo02.png";
 
@@ -27,6 +28,9 @@ const Header = () => {
       console.log(err);
     }
   };
+
+  const { data: cart, error, isLoading } = useGetCartQuery();
+  const cartCount = cart?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
   return (
     <header className="header">
@@ -62,7 +66,7 @@ const Header = () => {
                     <LinkContainer to="/cart">
                       <NavDropdown.Item>
                         <BsCart4 />
-                        Cart <Badge bg="danger">1</Badge>
+                        Cart <Badge bg="danger">{cartCount}</Badge>
                       </NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>

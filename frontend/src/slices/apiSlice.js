@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { get } from "mongoose";
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "" }),
-  tagTypes: ["User", "Medication", "Cart"],
+  tagTypes: ["User", "Medication", "Cart", "Order"],
   endpoints: (builder) => ({
     getUser: builder.query({}),
     getMedication: builder.query({}),

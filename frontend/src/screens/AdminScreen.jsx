@@ -1,19 +1,27 @@
 import React, { useState } from "react";
 import AdminDashboard from "./AdminDashboard";
 import MedicationScreen from "./MedicationScreen";
+import OrderScreen from "./OrderScreen";
 
 const AdminScreen = () => {
-  const [showMedicationScreen, setShowMedicationScreen] = useState(false);
-
+  const [showScreen, setShowScreen] = useState("");
   const handleManageMedications = () => {
-    setShowMedicationScreen((prev) => !prev); // Toggle the state
+    setShowScreen("medications");
+  };
+
+  const handleManageOrders = () => {
+    setShowScreen("orders");
   };
 
   return (
     <div>
       <h1>Admin Dashboard</h1>
-      <AdminDashboard onManageMedications={handleManageMedications} />
-      {showMedicationScreen && <MedicationScreen />}
+      <AdminDashboard
+        onManageMedications={handleManageMedications}
+        onManageOrders={handleManageOrders}
+      />
+      {showScreen === "medications" && <MedicationScreen />}
+      {showScreen === "orders" && <OrderScreen />}
     </div>
   );
 };

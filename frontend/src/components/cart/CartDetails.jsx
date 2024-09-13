@@ -79,7 +79,10 @@ const CartDetails = () => {
       <h2>Total: ${total.toFixed(2)}</h2>
       <Button
         variant="success"
-        onClick={() => navigate("/checkout")}
+        onClick={() => {
+          navigate("/checkout");
+          window.location.reload();
+        }}
         className="mb-3 ms-3"
       >
         Checkout

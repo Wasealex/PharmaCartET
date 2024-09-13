@@ -113,7 +113,7 @@ const deleteOrder = expressAsyncHandler(async (req, res) => {
 // Get All Orders (Optional)
 const getAllOrders = expressAsyncHandler(async (req, res) => {
   const orders = await Order.find({}).populate("user", "name");
-  res.status(200).json(orders);
+  res.status(200).json({ orders });
 });
 
 export { getOrderById, createOrder, updateOrder, deleteOrder, getAllOrders };

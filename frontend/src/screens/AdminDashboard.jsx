@@ -1,17 +1,14 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
-const AdminDashboard = ({ onManageMedications }) => {
+const AdminDashboard = ({ onManageMedications, onManageOrders }) => {
   return (
     <Container className="mt-5">
       <Row className="d-flex justify-content-center">
         <Col md={4} className="text-center">
-          <Link to="/admin/users">
-            <Button variant="primary" size="lg" block>
-              Manage Users
-            </Button>
-          </Link>
+          <Button variant="primary" size="lg" block onClick={onManageOrders}>
+            Manage Orders
+          </Button>
         </Col>
         <Col md={4} className="text-center">
           <Button
