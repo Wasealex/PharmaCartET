@@ -10,7 +10,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
   if (user && (await user.matchPasswords(password))) {
     generateToken(res, user._id);
-    res.status(201).json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -50,11 +50,21 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     password,
   });
   if (user) {
+    if (req.file) {
+      const ImageUrl =
+        req.protocol + "://" + req.get("host") + "/" + req.file.path;
+      user.ImageUrl = ImageUrl;
+      await user.save();
+    }
+  }
+
+  if (user) {
     generateToken(res, user._id);
     res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
+      ImageUrl: user.ImageUrl,
       isAdmin: user.isAdmin,
       message: "User created successfully",
     });
@@ -84,6 +94,7 @@ const getUserProfile = expressAsyncHandler(async (req, res) => {
     _id: req.user._id,
     name: req.user.name,
     email: req.user.email,
+    ImageUrl: req.user.ImageUrl,
     isAdmin: req.user.isAdmin,
   };
   res.status(200).json(user);
@@ -98,6 +109,12 @@ const updateUserProfile = expressAsyncHandler(async (req, res) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
 
+    if (req.file) {
+      const ImageUrl =
+        req.protocol + "://" + req.get("host") + "/" + req.file.path;
+      user.ImageUrl = ImageUrl;
+    }
+
     if (req.body.password) {
       user.password = req.body.password;
     }
@@ -107,6 +124,7 @@ const updateUserProfile = expressAsyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      ImageUrl: updatedUser.ImageUrl,
     });
   } else {
     res.status(404);

@@ -36,6 +36,10 @@ const orderSchema = new mongoose.Schema(
     chappaSessionId: {
       type: String,
     },
+    imageUrl: {
+      type: String,
+      default: "../frontend/src/assets/default/defaultprescription.png",
+    },
   },
   { timestamps: true }
 );

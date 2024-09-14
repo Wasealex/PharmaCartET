@@ -26,6 +26,14 @@ const addMedication = expressAsyncHandler(async (req, res) => {
       price,
     });
     if (medication) {
+      if (req.file) {
+        const imageUrl =
+          req.protocol + "://" + req.get("host") + "/" + req.file.path;
+        medication.image = imageUrl;
+        await medication.save();
+      }
+    }
+    if (medication) {
       res.status(201).send(medication);
     } else {
       res.status(400);
@@ -39,6 +47,12 @@ const updateMedication = expressAsyncHandler(async (req, res) => {
     medication.name = req.body.name || medication.name;
     medication.description = req.body.description || medication.description;
     medication.price = req.body.price || medication.price;
+
+    if (req.file) {
+      const imageUrl =
+        req.protocol + "://" + req.get("host") + "/" + req.file.path;
+      medication.image = imageUrl;
+    }
 
     const updatedMedication = await medication.save();
     res.send({ message: "Medication Updated", medication: updatedMedication });

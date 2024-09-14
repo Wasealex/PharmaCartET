@@ -18,6 +18,10 @@ const medicationSchema = new mongoose.Schema(
       default: 0,
       min: 0,
     },
+    imageUrl: {
+      type: String,
+      default: "../frontend/src/assets/default/defaultmedication.png",
+    },
   },
   {
     timestamps: true,

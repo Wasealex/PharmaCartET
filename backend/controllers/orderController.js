@@ -46,6 +46,14 @@ const getOrderById = expressAsyncHandler(async (req, res) => {
       path: "medications.medication",
       select: "name price", // Ensure you select the necessary fields
     });
+  if (order) {
+    if (req.file) {
+      const imageUrl =
+        req.protocol + "://" + req.get("host") + "/" + req.file.path;
+      order.imageUrl = imageUrl;
+      await order.save();
+    }
+  }
 
   if (order) {
     res.status(200).json({
@@ -59,6 +67,7 @@ const getOrderById = expressAsyncHandler(async (req, res) => {
           price: item.price,
         })),
         totalPrice: order.totalPrice,
+        imageUrl: order.image,
       },
     });
   } else {

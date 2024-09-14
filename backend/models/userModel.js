@@ -32,6 +32,10 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    ImageUrl: {
+      type: String,
+      default: "../frontend/src/assets/default/defaultProfile.png",
+    },
   },
   {
     timestamps: true,
