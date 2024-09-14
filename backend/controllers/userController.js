@@ -15,6 +15,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      ImageUrl: user.ImageUrl,
       message: `${user.name} logged in successfully`,
     });
   } else {
