@@ -1,6 +1,7 @@
 import React from "react";
 import { useGetCartQuery } from "../slices/cartApiSlice";
 import { useCreateOrderMutation } from "../slices/orderApiSlice";
+import { useAddPaymentMethodMutation } from "../slices/paymentApiSlice";
 import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,26 +12,35 @@ const CheckOutScreen = () => {
   const { data: cart = [], isLoading: isLoadingCart } = useGetCartQuery();
   const [createOrder, { isLoading: isCreatingOrder }] =
     useCreateOrderMutation();
-
+  const [addPaymentMethod, { isLoading: isAddingPaymentMethod }] =
+    useAddPaymentMethodMutation();
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const handleConfirmOrder = async () => {
-    if (cart.length === 0) {
-      toast.error("Cart is empty");
-      return;
-    }
-
+  const handleAddPaymentMethodAndCreateOrder = async () => {
     try {
-      const response = await createOrder().unwrap();
-      toast.success("Order created successfully");
-      navigate("/payment");
+      if (cart.length === 0) {
+        toast.error("Cart is empty");
+        return;
+      }
+
+      try {
+        const orderResponse = await createOrder().unwrap();
+        const data = {
+          amount: total,
+        };
+        const paymentResponse = await addPaymentMethod(data).unwrap();
+        const CheckOutUrl = paymentResponse.data.checkout_url;
+        toast.success("Payment method added successfully");
+        window.open(CheckOutUrl, "_blank");
+      } catch (error) {
+        toast.error(error?.data?.message || "An error occurred");
+      }
     } catch (error) {
       toast.error(error?.data?.message || "An error occurred");
     }
   };
-
-  if (isLoadingCart) {
-    return <Loader />; // Show loader while fetching cart
+  if (isCreatingOrder || isAddingPaymentMethod || isLoadingCart) {
+    return <Loader />; // Show loader while creating order or adding payment method
   }
 
   return (
@@ -80,11 +90,12 @@ const CheckOutScreen = () => {
         </Button>
         <Button
           variant="success"
-          onClick={handleConfirmOrder}
           className="mb-3"
-          disabled={isCreatingOrder}
+          onClick={handleAddPaymentMethodAndCreateOrder}
         >
-          {isCreatingOrder ? "Creating order..." : "Confirm Order"}
+          {isCreatingOrder || isAddingPaymentMethod
+            ? "{Loader}"
+            : "Confirm order and pay"}
         </Button>
       </div>
     </div>

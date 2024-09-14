@@ -4,7 +4,7 @@ import { get } from "mongoose";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "" }),
-  tagTypes: ["User", "Medication", "Cart", "Order"],
+  tagTypes: ["User", "Medication", "Cart", "Order", "Payment"],
   endpoints: (builder) => ({
     getUser: builder.query({}),
     getMedication: builder.query({}),
