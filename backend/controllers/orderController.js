@@ -1,10 +1,14 @@
 import expressAsyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
-import User from "../models/userModel.js"; // Import the User model
+import User from "../models/userModel.js";
+import Medication from "../models/medicationModel.js"; // Import the Medication model
 
 // Create Order
 const createOrder = expressAsyncHandler(async (req, res) => {
-  // Fetch the user's cart items
+  if (!req.user) {
+    return res.status(401).json({ message: "User not authenticated." });
+  }
+
   const user = await User.findById(req.user._id).populate(
     "cartItems.medication"
   );
@@ -13,10 +17,35 @@ const createOrder = expressAsyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Cart is empty or not found." });
   }
 
-  // Calculate total price
-  const totalPrice = user.cartItems.reduce((acc, item) => {
-    return acc + item.medication.price * item.quantity; // Assuming medication has a price field
-  }, 0);
+  let totalPrice = 0;
+
+  for (const item of user.cartItems) {
+    const medication = item.medication;
+
+    if (!medication) {
+      return res.status(400).json({
+        message: `Invalid medication ID for item with quantity ${item.quantity}.`,
+      });
+    }
+
+    if (item.quantity <= 0) {
+      return res
+        .status(400)
+        .json({ message: "Quantity must be greater than zero." });
+    }
+
+    if (medication.stock < item.quantity) {
+      return res.status(400).json({
+        message: `Not enough stock for ${medication.name}. Available: ${medication.stock}, Requested: ${item.quantity}`,
+      });
+    }
+
+    if (medication.price <= 0) {
+      return res.status(400).json({ message: "Medication price is invalid." });
+    }
+
+    totalPrice += medication.price * item.quantity;
+  }
 
   // Create the order
   const order = new Order({
@@ -27,22 +56,31 @@ const createOrder = expressAsyncHandler(async (req, res) => {
       price: item.medication.price,
     })),
     totalPrice,
-    chappaSessionId: req.body.chappaSessionId, // Ensure this is passed in the request body
+    chappaSessionId: req.body.chappaSessionId,
   });
+
   if (req.file) {
-    const imageUrl =
+    order.imageUrl =
       req.protocol + "://" + req.get("host") + "/" + req.file.path;
-    order.imageUrl = imageUrl;
   }
 
   const createdOrder = await order.save();
 
-  // Optionally clear the cart after creating the order
+  // Update medication stock
+  await Promise.all(
+    user.cartItems.map(async (item) => {
+      const medication = await Medication.findById(item.medication);
+      if (medication) {
+        medication.stock -= item.quantity; // Decrease the stock
+        await medication.save(); // Save the updated medication
+      }
+    })
+  );
+
   user.cartItems = []; // Clear the cart items
   await user.save(); // Save the user document
   res.status(201).json(createdOrder);
 });
-
 // Get Order by ID
 const getOrderById = expressAsyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
