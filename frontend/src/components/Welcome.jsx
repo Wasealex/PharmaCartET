@@ -51,6 +51,17 @@ const Welcome = () => {
   // Get unique categories
   const categories = [...new Set(medications.map((med) => med.category))];
 
+  const filteredMedications = medications.filter(
+    (med) =>
+      (selectedCategory === "All" || med.category === selectedCategory) &&
+      med.stock > 0 &&
+      new Date(med.expiryDate) > new Date()
+  );
+
+  const searchedMedications = filteredMedications.filter((med) =>
+    med.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Container>
       <h1>Welcome {userName}, here are your medications:</h1>
@@ -83,13 +94,7 @@ const Welcome = () => {
         </Col>
         <Col md={9}>
           <MedicationList
-            medications={medications.filter(
-              (med) =>
-                (selectedCategory === "All" ||
-                  med.category === selectedCategory) &&
-                med.stock > 0 &&
-                new Date(med.expiryDate) > new Date()
-            )}
+            medications={searchedMedications}
             searchTerm={searchTerm}
             handleAddToCart={handleAddToCart}
             handleViewDetails={handleViewDetails}
