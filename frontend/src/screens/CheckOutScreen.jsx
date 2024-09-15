@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGetCartQuery } from "../slices/cartApiSlice";
 import { useCreateOrderMutation } from "../slices/orderApiSlice";
 import { useAddPaymentMethodMutation } from "../slices/paymentApiSlice";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Form, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
@@ -14,7 +14,12 @@ const CheckOutScreen = () => {
     useCreateOrderMutation();
   const [addPaymentMethod, { isLoading: isAddingPaymentMethod }] =
     useAddPaymentMethodMutation();
+  const [prescriptionFile, setPrescriptionFile] = useState(null);
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+  const handlePrescriptionChange = (e) => {
+    setPrescriptionFile(e.target.files[0]);
+  };
 
   const handleAddPaymentMethodAndCreateOrder = async () => {
     try {
@@ -23,12 +28,16 @@ const CheckOutScreen = () => {
         return;
       }
 
+      const formData = new FormData();
+      formData.append("amount", total);
+      if (prescriptionFile) {
+        formData.append("image", prescriptionFile);
+      }
+
       try {
-        const orderResponse = await createOrder().unwrap();
-        const data = {
-          amount: total,
-        };
-        const paymentResponse = await addPaymentMethod(data).unwrap();
+        const orderResponse = await createOrder(formData).unwrap();
+        const paymentData = { amount: total };
+        const paymentResponse = await addPaymentMethod(paymentData).unwrap();
         const CheckOutUrl = paymentResponse.data.checkout_url;
         toast.success("Payment method added successfully");
         window.open(CheckOutUrl, "_blank");
@@ -39,12 +48,36 @@ const CheckOutScreen = () => {
       toast.error(error?.data?.message || "An error occurred");
     }
   };
+
   if (isCreatingOrder || isAddingPaymentMethod || isLoadingCart) {
     return <Loader />; // Show loader while creating order or adding payment method
   }
 
   return (
     <div>
+      <h1 className="text-center">Upload Prescription</h1>
+      <Form>
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>Upload Prescription</Form.Label>
+          <Form.Control
+            type="file"
+            onChange={handlePrescriptionChange}
+            accept=".pdf,.jpeg,.jpg,.png"
+          />
+          {prescriptionFile && (
+            <div className="mt-3">
+              <Image
+                src={URL.createObjectURL(prescriptionFile)} // Create a URL for the uploaded file
+                alt="Uploaded Prescription"
+                style={{ maxWidth: "100%", maxHeight: "200px" }}
+                fluid
+              />
+              <p>Please upload your prescription before paying.</p>
+            </div>
+          )}
+        </Form.Group>
+      </Form>
+
       <h1 className="text-center">Order Summary</h1>
       <Table striped bordered hover>
         <thead>
@@ -92,9 +125,10 @@ const CheckOutScreen = () => {
           variant="success"
           className="mb-3"
           onClick={handleAddPaymentMethodAndCreateOrder}
+          disabled={!prescriptionFile} // Disable button if no file is uploaded
         >
           {isCreatingOrder || isAddingPaymentMethod
-            ? "{Loader}"
+            ? "Loading..."
             : "Confirm order and pay"}
         </Button>
       </div>

@@ -6,7 +6,6 @@ import defaultimg from "../../assets/default/defaultmedication.png";
 const MedicationDetails = ({ medication }) => {
   const parsedImageUrl = "/" + parseImageUrl(medication.imageUrl);
   const medicationImage = parsedImageUrl === "/" ? defaultimg : parsedImageUrl;
-
   return (
     <Container>
       <Row>

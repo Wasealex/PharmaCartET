@@ -14,6 +14,7 @@ import {
   Col,
   Card,
   Image,
+  Modal,
 } from "react-bootstrap";
 
 const UpdateMedicationScreen = () => {
@@ -27,20 +28,9 @@ const UpdateMedicationScreen = () => {
   } = useGetMedicationByIdQuery(id);
   const [updateMedication, { isLoading }] = useUpdateMedicationMutation();
 
-  const [medication, setMedication] = useState({
-    name: "",
-    description: "",
-    price: 0,
-    stock: 0,
-    category: "",
-    dosageForm: "",
-    dosageInstructions: "",
-    sideEffects: "",
-    interactions: "",
-    manufacturer: "",
-    expiryDate: "",
-  });
+  const [medication, setMedication] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (medicationData) {
@@ -72,6 +62,9 @@ const UpdateMedicationScreen = () => {
     }
   };
 
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
   if (isFetching) return <h1>Loading...</h1>;
   if (error) return <h1>Error: {error.message}</h1>;
 
@@ -82,13 +75,32 @@ const UpdateMedicationScreen = () => {
           <Card>
             <Card.Body>
               <h1 className="text-center">Update Medication</h1>
-              {medication && <MedicationDetails medication={medication} />}
+              {medication && (
+                <>
+                  <Button variant="info" onClick={handleShowModal}>
+                    View Medication Details
+                  </Button>
+                  <Modal show={showModal} onHide={handleCloseModal} size="lg">
+                    <Modal.Header closeButton>
+                      <Modal.Title>Medication Details</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <MedicationDetails medication={medication} />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleCloseModal}>
+                        Close
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                </>
+              )}
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="name">
                   <Form.Label>Name:</Form.Label>
                   <Form.Control
                     type="text"
-                    value={medication.name}
+                    value={medication?.name || ""}
                     onChange={(e) =>
                       setMedication({ ...medication, name: e.target.value })
                     }
@@ -99,7 +111,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Description:</Form.Label>
                   <Form.Control
                     type="text"
-                    value={medication.description}
+                    value={medication?.description || ""}
                     onChange={(e) =>
                       setMedication({
                         ...medication,
@@ -113,7 +125,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Price:</Form.Label>
                   <Form.Control
                     type="number"
-                    value={medication.price}
+                    value={medication?.price || 0}
                     onChange={(e) =>
                       setMedication({
                         ...medication,
@@ -127,7 +139,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Stock:</Form.Label>
                   <Form.Control
                     type="number"
-                    value={medication.stock}
+                    value={medication?.stock || 0}
                     onChange={(e) =>
                       setMedication({
                         ...medication,
@@ -141,7 +153,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Category:</Form.Label>
                   <Form.Control
                     type="text"
-                    value={medication.category}
+                    value={medication?.category || ""}
                     onChange={(e) =>
                       setMedication({
                         ...medication,
@@ -155,7 +167,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Dosage Form:</Form.Label>
                   <Form.Control
                     type="text"
-                    value={medication.dosageForm}
+                    value={medication?.dosageForm || ""}
                     onChange={(e) =>
                       setMedication({
                         ...medication,
@@ -169,7 +181,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Dosage Instructions:</Form.Label>
                   <Form.Control
                     type="text"
-                    value={medication.dosageInstructions}
+                    value={medication?.dosageInstructions || ""}
                     onChange={(e) =>
                       setMedication({
                         ...medication,
@@ -183,7 +195,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Side Effects (comma-separated):</Form.Label>
                   <Form.Control
                     type="text"
-                    value={medication.sideEffects}
+                    value={medication?.sideEffects || ""}
                     onChange={(e) =>
                       setMedication({
                         ...medication,
@@ -197,7 +209,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Interactions (comma-separated):</Form.Label>
                   <Form.Control
                     type="text"
-                    value={medication.interactions}
+                    value={medication?.interactions || ""}
                     onChange={(e) =>
                       setMedication({
                         ...medication,
@@ -211,7 +223,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Manufacturer:</Form.Label>
                   <Form.Control
                     type="text"
-                    value={medication.manufacturer}
+                    value={medication?.manufacturer || ""}
                     onChange={(e) =>
                       setMedication({
                         ...medication,
@@ -225,7 +237,7 @@ const UpdateMedicationScreen = () => {
                   <Form.Label>Expiry Date:</Form.Label>
                   <Form.Control
                     type="date"
-                    value={medication.expiryDate}
+                    value={medication?.expiryDate || ""}
                     onChange={(e) =>
                       setMedication({
                         ...medication,

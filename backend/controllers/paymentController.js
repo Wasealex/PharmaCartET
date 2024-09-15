@@ -16,8 +16,6 @@ const addPaymentMethod = expressAsyncHandler(async (req, res) => {
       tx_ref: txRef,
     };
 
-    console.log("Payload to Chapa:", JSON.stringify(payload, null, 2)); // Log formatted JSON
-
     try {
       const response = await axios.post(
         "https://api.chapa.co/v1/transaction/initialize",
