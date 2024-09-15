@@ -22,6 +22,7 @@ export const medicationApiSlice = apiSlice.injectEndpoints({
         url: `/api/medications/update/${id}`,
         method: "PUT",
         body: medication,
+        transformResponse: (response) => response.medication,
       }),
     }),
     deleteMedication: builder.mutation({

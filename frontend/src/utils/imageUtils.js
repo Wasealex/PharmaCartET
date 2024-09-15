@@ -1,1 +1,1 @@
-export const parseImageUrl = (url) => url.split("\\").slice(9).join("/");
+export const parseImageUrl = (url) => url.split("\\").slice(-4).join("/");

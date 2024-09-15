@@ -13,8 +13,9 @@ import {
   Row,
   Col,
   Card,
-  CardBody,
+  Image,
 } from "react-bootstrap";
+
 const UpdateMedicationScreen = () => {
   const { id } = useParams(); // Get the medication ID from the URL
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const UpdateMedicationScreen = () => {
     description: "",
     price: 0,
   });
+  const [selectedImage, setSelectedImage] = useState(null);
 
   // Effect to set medication data when it is fetched
   useEffect(() => {
@@ -41,14 +43,29 @@ const UpdateMedicationScreen = () => {
     }
   }, [medicationData]);
 
+  // Handle image change
+  const handleImageChange = (e) => {
+    setSelectedImage(e.target.files[0]);
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateMedication({ id, medication }).unwrap();
+      const formData = new FormData();
+      formData.append("name", medication.name);
+      formData.append("description", medication.description);
+      formData.append("price", medication.price);
+      if (selectedImage) {
+        formData.append("image", selectedImage);
+      }
+
+      await updateMedication({ id, medication: formData }).unwrap();
+      toast.success("Medication updated successfully!");
       navigate("/admin/dashboard"); // Redirect after successful update
     } catch (error) {
       console.error("Failed to update medication:", error);
+      toast.error("Failed to update medication.");
     }
   };
 
@@ -103,6 +120,18 @@ const UpdateMedicationScreen = () => {
                     }
                     required
                   />
+                </Form.Group>
+                <Form.Group controlId="image">
+                  <Form.Label>Image:</Form.Label>
+                  <Form.Control type="file" onChange={handleImageChange} />
+                  {selectedImage && (
+                    <Image
+                      src={URL.createObjectURL(selectedImage)}
+                      alt={selectedImage.name}
+                      className="mt-3"
+                      fluid
+                    />
+                  )}
                 </Form.Group>
                 <Button
                   type="submit"

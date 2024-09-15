@@ -29,7 +29,7 @@ const addMedication = expressAsyncHandler(async (req, res) => {
       if (req.file) {
         const imageUrl =
           req.protocol + "://" + req.get("host") + "/" + req.file.path;
-        medication.image = imageUrl;
+        medication.imageUrl = imageUrl;
         await medication.save();
       }
     }
@@ -51,11 +51,18 @@ const updateMedication = expressAsyncHandler(async (req, res) => {
     if (req.file) {
       const imageUrl =
         req.protocol + "://" + req.get("host") + "/" + req.file.path;
-      medication.image = imageUrl;
+      medication.imageUrl = imageUrl;
     }
 
     const updatedMedication = await medication.save();
-    res.send({ message: "Medication Updated", medication: updatedMedication });
+    res.status(200).json({
+      _id: updatedMedication._id,
+      name: updatedMedication.name,
+      description: updatedMedication.description,
+      price: updatedMedication.price,
+      imageUrl: updatedMedication.imageUrl,
+      message: "Medication Updated",
+    });
   } else {
     res.status(404).send({ message: "Medication Not Found" });
   }

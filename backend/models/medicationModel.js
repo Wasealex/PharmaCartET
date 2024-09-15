@@ -20,7 +20,7 @@ const medicationSchema = new mongoose.Schema(
     },
     imageUrl: {
       type: String,
-      default: "../frontend/src/assets/default/defaultmedication.png",
+      default: "",
     },
   },
   {

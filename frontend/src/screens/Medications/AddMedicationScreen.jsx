@@ -2,33 +2,44 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAddMedicationMutation } from "../../slices/medicationApiSlice";
 import { toast } from "react-toastify";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Image } from "react-bootstrap";
 
 const AddMedicationScreen = () => {
   const [medication, setMedication] = useState({
     name: "",
     description: "",
     price: 0,
+    image: "",
   });
   const [addMedication, { isLoading }] = useAddMedicationMutation();
   const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addMedication(medication).unwrap();
+      const formData = new FormData();
+      formData.append("name", medication.name);
+      formData.append("description", medication.description);
+      formData.append("price", medication.price);
+      if (selectedImage) {
+        formData.append("image", selectedImage);
+      }
+
+      await addMedication(formData).unwrap();
       // Reset form fields after successful submission
-      setMedication({ name: "", description: "", price: 0 });
+      setMedication({ name: "", description: "", price: 0, image: "" });
+      setSelectedImage(null);
       toast.success("Medication added successfully!");
+      navigate("/admin/dashboard");
     } catch (error) {
       console.error("Failed to add medication:", error);
       toast.error("Failed to add medication.");
     }
   };
 
-  const handleDone = () => {
-    // Navigate to the dashboard without refreshing the page
-    navigate("/admin/dashboard");
+  const handleImageChange = (e) => {
+    setSelectedImage(e.target.files[0]);
   };
 
   return (
@@ -68,17 +79,19 @@ const AddMedicationScreen = () => {
             required
           />
         </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Image:</Form.Label>
+          <Form.Control type="file" onChange={handleImageChange} />
+          {selectedImage && (
+            <Image
+              src={URL.createObjectURL(selectedImage)}
+              alt={selectedImage.name}
+              className="mt-3"
+            />
+          )}
+        </Form.Group>
         <Button variant="primary" type="submit" disabled={isLoading}>
           {isLoading ? "Adding..." : "Add Medication"}
-        </Button>
-        <Button
-          variant="secondary"
-          type="button"
-          onClick={handleDone}
-          disabled={isLoading}
-          className="ms-2"
-        >
-          Done
         </Button>
       </Form>
     </div>

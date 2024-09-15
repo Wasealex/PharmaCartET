@@ -34,7 +34,7 @@ const userSchema = mongoose.Schema(
     },
     ImageUrl: {
       type: String,
-      default: null,
+      default: "",
     },
   },
   {

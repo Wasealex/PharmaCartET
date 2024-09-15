@@ -5,12 +5,13 @@ import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import defaultimg from "../../assets/default/defaultprescription.png";
+import { parseImageUrl } from "../../utils/imageUtils";
 
 const OrderDetailsScreen = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: order, isLoading, isError } = useGetOrderByIdQuery(id);
-  console.log(order);
 
   if (isLoading) {
     return <Loader />;
@@ -20,7 +21,12 @@ const OrderDetailsScreen = () => {
     toast.error("Error fetching order details");
     return <div>Error fetching order details</div>;
   }
-
+  console.log(order);
+  const prescriptionImage = "/" + parseImageUrl(order?.imageUrl);
+  const prescriptionImageDefault =
+    prescriptionImage === "/" ? defaultimg : prescriptionImage;
+  console.log(prescriptionImage);
+  console.log(prescriptionImageDefault);
   return (
     <div>
       <h1>Order {id}</h1>
@@ -42,6 +48,14 @@ const OrderDetailsScreen = () => {
           ))}
         </tbody>
       </Table>
+      <div>
+        <h4>PrecsriptionImage</h4>
+        <img
+          src={prescriptionImageDefault}
+          alt="Prescription"
+          style={{ objectFit: "contain" }}
+        />
+      </div>
       <h4>Total Price: ${order.totalPrice}</h4>
       <Button variant="primary" onClick={() => navigate(-1)}>
         Go Back

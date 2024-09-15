@@ -9,11 +9,19 @@ import { useLogoutMutation } from "../slices/usersApiSlice";
 import { useGetCartQuery } from "../slices/cartApiSlice";
 import { clearCredentials } from "../slices/authSlice";
 import logo from "../assets/images/logos/Logo02.png";
+import defaultImg from "../assets/default/defaultprofile.png";
+import { parseImageUrl } from "../utils/imageUtils";
 
 const Header = () => {
   const userInfo = useSelector((state) => state.auth);
+  const userProfileImage = userInfo?.userInfo?.ImageUrl;
   const userName = userInfo?.userInfo?.name;
   const dispatch = useDispatch();
+
+  const profileImage =
+    userProfileImage && parseImageUrl(userProfileImage) !== defaultImg
+      ? parseImageUrl(userProfileImage)
+      : defaultImg;
 
   const isAdmin = userInfo?.userInfo?.isAdmin;
   const navigate = useNavigate();
@@ -50,7 +58,21 @@ const Header = () => {
             <Nav className="align-items-center">
               {userName ? (
                 <>
-                  <NavDropdown title={userName} id="username" align="end">
+                  <NavDropdown
+                    title={
+                      <>
+                        <img
+                          src={profileImage}
+                          alt={userName}
+                          width="30"
+                          className="rounded-circle me-2"
+                        />
+                        {userName}
+                      </>
+                    }
+                    id="username"
+                    align="end"
+                  >
                     {isAdmin && (
                       <LinkContainer to="/admin/dashboard">
                         <NavDropdown.Item>

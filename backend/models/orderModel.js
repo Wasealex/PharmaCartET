@@ -38,7 +38,7 @@ const orderSchema = new mongoose.Schema(
     },
     imageUrl: {
       type: String,
-      default: "../frontend/src/assets/default/defaultprescription.png",
+      default: "",
     },
   },
   { timestamps: true }
