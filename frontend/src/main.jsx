@@ -24,6 +24,7 @@ import CartScreen from "./screens/CartScreen.jsx";
 import CheckOutScreen from "./screens/CheckOutScreen.jsx";
 import OrderDetailsScreen from "./screens/Orders/OrderDetailsScreen.jsx";
 import PaymentScreen from "./screens/PaymentScreen.jsx";
+import DrugInteractionScreen from "./screens/Medications/DrugInteractionScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,12 +32,20 @@ const router = createBrowserRouter(
       <Route index={true} element={<HomeScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/signup" element={<RegisterScreen />} />
+
+      {/* Protected Routes */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/cart" element={<CartScreen />} />
         <Route path="/checkout" element={<CheckOutScreen />} />
         <Route path="/payment" element={<PaymentScreen />} />
+        <Route
+          path="/drug-interaction-checker"
+          element={<DrugInteractionScreen />}
+        />
       </Route>
+
+      {/* Admin Routes */}
       <Route path="" element={<AdminRoute />}>
         <Route path="/admin/dashboard" element={<AdminScreen />} />
         <Route path="/admin/add-medication" element={<AddMedicationScreen />} />

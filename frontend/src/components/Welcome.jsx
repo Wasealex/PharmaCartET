@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Table,
-  Button,
-  Alert,
-  Row,
-  Col,
-  ListGroup,
-  Modal,
-} from "react-bootstrap";
+import { Container, Row, Col, Form, Modal, Button } from "react-bootstrap";
 import { useGetMedicationsQuery } from "../slices/medicationApiSlice";
 import { useAddToCartMutation } from "../slices/cartApiSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import MedicationDetails from "../components/medication/MedicationDetails"; // Import the MedicationDetails component
+import MedicationList from "../components/medication/MedicationList.jsx";
+import CategoryFilter from "../components/medication/CategoryFilter.jsx";
+import MedicationDetails from "../components/medication/MedicationDetails.jsx";
 
 const Welcome = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -26,15 +19,19 @@ const Welcome = () => {
 
   const [selectedMedication, setSelectedMedication] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All"); // New state for selected category
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loadingId, setLoadingId] = useState(null); // State to track loading medication
 
   const handleAddToCart = async (id) => {
+    setLoadingId(id); // Set the loading ID to the current medication
     try {
       await addToCart(id);
       toast.success("Medication added to cart");
-      navigate("/");
+      window.location.reload(); // Reload the page after adding to cart
     } catch (err) {
       console.error(err);
+      setLoadingId(null); // Reset loading ID if there's an error
     }
   };
 
@@ -54,83 +51,52 @@ const Welcome = () => {
   // Get unique categories
   const categories = [...new Set(medications.map((med) => med.category))];
 
-  // Filter medications based on selected category
-  const filteredMedications =
-    selectedCategory === "All"
-      ? medications
-      : medications.filter((med) => med.category === selectedCategory);
-
   return (
     <Container>
       <h1>Welcome {userName}, here are your medications:</h1>
+      <Button
+        variant="primary"
+        onClick={() => navigate("/drug-interaction-checker")}
+        className="mt-3"
+      >
+        Drug Interaction Checker
+      </Button>
+      {/* Search Box */}
+      <Form.Group controlId="searchMedication">
+        <Form.Control
+          type="text"
+          placeholder="Search medications..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </Form.Group>
+
       <Row>
         <Col md={3}>
           <h4>Categories</h4>
-          <ListGroup>
-            <ListGroup.Item action onClick={() => setSelectedCategory("All")}>
-              All Medications
-            </ListGroup.Item>
-            {categories.map((category) => (
-              <ListGroup.Item
-                key={category}
-                action
-                onClick={() => setSelectedCategory(category)} // Set selected category
-              >
-                {category}
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
+          <CategoryFilter
+            categories={categories}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            medications={medications}
+          />
         </Col>
         <Col md={9}>
-          {addError && (
-            <Alert variant="danger">
-              Error adding to cart: {addError.message}
-            </Alert>
-          )}
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th className="d-none d-md-table-cell">Description</th>
-                <th className="d-none d-md-table-cell">Price</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredMedications.map(
-                (
-                  medication // Use filtered medications
-                ) => (
-                  <tr key={medication._id}>
-                    <td>{medication.name}</td>
-                    <td className="d-none d-md-table-cell">
-                      {medication.description}
-                    </td>
-                    <td className="d-none d-md-table-cell">
-                      ${medication.price.toFixed(2)}
-                    </td>
-                    <td>
-                      <Button
-                        variant="success"
-                        onClick={() => handleAddToCart(medication._id)}
-                        className="d-block d-md-inline-block"
-                        disabled={isAdding}
-                      >
-                        {isAdding ? "Adding..." : "Add to Cart"}
-                      </Button>
-                      <Button
-                        variant="info"
-                        onClick={() => handleViewDetails(medication)}
-                        className="d-block d-md-inline-block ml-2"
-                      >
-                        View Details
-                      </Button>
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </Table>
+          <MedicationList
+            medications={medications.filter(
+              (med) =>
+                (selectedCategory === "All" ||
+                  med.category === selectedCategory) &&
+                med.stock > 0 &&
+                new Date(med.expiryDate) > new Date()
+            )}
+            searchTerm={searchTerm}
+            handleAddToCart={handleAddToCart}
+            handleViewDetails={handleViewDetails}
+            isAdding={isAdding}
+            addError={addError}
+            loadingId={loadingId} // Pass loadingId to MedicationList
+          />
 
           {/* Modal for Medication Details */}
           <Modal show={showModal} onHide={handleCloseModal} size="lg">

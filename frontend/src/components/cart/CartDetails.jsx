@@ -6,11 +6,12 @@ import {
   useUpdateCartMutation,
   useClearCartMutation,
 } from "../../slices/cartApiSlice";
-import { Table, Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { FaCartPlus } from "react-icons/fa";
-import { BsFillCartDashFill } from "react-icons/bs";
 import { toast } from "react-toastify";
+import CartHeader from "./CartHeader";
+import CartItems from "./CartItems";
+import CartTotal from "./CartTotal";
 
 const CartDetails = () => {
   const navigate = useNavigate();
@@ -24,14 +25,11 @@ const CartDetails = () => {
   if (error) return <h1>Error: {error.message}</h1>;
 
   const handleAddToCart = (itemId) => {
-    try {
-      addToCart(itemId);
-      toast.success("Item added to cart");
-      navigate("/cart");
-    } catch (error) {
-      toast.error("Error adding item to cart");
-    }
+    addToCart(itemId);
+    toast.success("Item added to cart");
+    navigate("/cart");
   };
+
   const handleUpdateQuantity = (itemId, quantity) => {
     updateItem({ id: itemId, quantity });
     toast.success("Quantity updated successfully");
@@ -45,115 +43,28 @@ const CartDetails = () => {
   };
 
   const handleClearCart = () => {
-    try {
-      if (window.confirm("Are you sure you want to clear the cart?") && cart) {
-        clearCart();
-        toast.success("Cart cleared successfully");
-        window.location.reload();
-        navigate("/cart");
-      }
-    } catch (error) {
-      toast.error("Error clearing cart");
+    if (window.confirm("Are you sure you want to clear the cart?") && cart) {
+      clearCart();
+      toast.success("Cart cleared successfully");
+      window.location.reload();
+      navigate("/cart");
     }
   };
 
-  const total = cart?.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
   return (
     <div>
-      <h1 className="text-center">Cart</h1>
-      <Button
-        variant="primary"
-        onClick={() => navigate("/")}
-        className="mb-3 ms-2"
-      >
-        Back to Medications
-      </Button>
-      <Button variant="danger" onClick={handleClearCart} className="mb-3 ms-3">
-        Clear Cart
-      </Button>
-      <br />
-      <h2>Total: ${total.toFixed(2)}</h2>
-      <Button
-        variant="success"
-        onClick={() => {
-          navigate("/checkout");
-          window.location.reload();
-        }}
-        className="mb-3 ms-3"
-      >
-        Checkout
-      </Button>
-
-      {cart?.length === 0 && <h1 className="text-center">Cart is empty</h1>}
-
-      <br />
-
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart?.length > 0 ? (
-            cart.map((item) => (
-              <tr key={item._id}>
-                <td>{item.name}</td>
-                <td>${item.price.toFixed(2)}</td>
-                <td>
-                  <Button
-                    onClick={() => handleAddToCart(item._id)}
-                    className="ms-2"
-                  >
-                    <FaCartPlus />
-                  </Button>
-                  <Form.Control
-                    type="number"
-                    value={item.quantity}
-                    onChange={(e) =>
-                      handleUpdateQuantity(item._id, Number(e.target.value))
-                    }
-                    min="1"
-                    size="sm"
-                    style={{
-                      width: "70px",
-                      textAlign: "center",
-                      fontSize: "3.5ch",
-                    }}
-                  />
-                  <Button
-                    onClick={() => handleDelete(item._id)}
-                    className="ms-2"
-                    variant="danger"
-                  >
-                    <BsFillCartDashFill />
-                  </Button>
-                </td>
-                <td>${(item.price * item.quantity).toFixed(2)}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4" className="text-center">
-                Your cart is empty.
-              </td>
-            </tr>
-          )}
-          <tr>
-            <td colSpan="3" className="text-right">
-              Total
-            </td>
-            <td>${total?.toFixed(2)}</td>
-          </tr>
-        </tbody>
-      </Table>
+      <CartHeader
+        cart={cart}
+        handleClearCart={handleClearCart}
+        navigate={navigate}
+      />
+      <CartItems
+        cart={cart}
+        handleAddToCart={handleAddToCart}
+        handleUpdateQuantity={handleUpdateQuantity}
+        handleDelete={handleDelete}
+      />
+      <CartTotal cart={cart} />
     </div>
   );
 };
