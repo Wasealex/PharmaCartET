@@ -10,6 +10,10 @@ export const medicationApiSlice = apiSlice.injectEndpoints({
       query: (id) => `/api/medications/${id}`,
       transformResponse: (response) => response.medication,
     }),
+    getMedicationByCategory: builder.query({
+      query: (category) => `/api/medications/category/${category}`,
+      transformResponse: (response) => response.medication,
+    }),
     addMedication: builder.mutation({
       query: (medication) => ({
         url: "/api/medications/add",
@@ -40,4 +44,5 @@ export const {
   useAddMedicationMutation,
   useUpdateMedicationMutation,
   useDeleteMedicationMutation,
+  useGetMedicationByCategoryQuery,
 } = medicationApiSlice;

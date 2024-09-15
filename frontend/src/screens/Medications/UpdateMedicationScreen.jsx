@@ -17,10 +17,9 @@ import {
 } from "react-bootstrap";
 
 const UpdateMedicationScreen = () => {
-  const { id } = useParams(); // Get the medication ID from the URL
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  // Fetch the medication data by ID
   const {
     data: medicationData,
     error,
@@ -28,48 +27,51 @@ const UpdateMedicationScreen = () => {
   } = useGetMedicationByIdQuery(id);
   const [updateMedication, { isLoading }] = useUpdateMedicationMutation();
 
-  // Local state for the medication details
   const [medication, setMedication] = useState({
     name: "",
     description: "",
     price: 0,
+    stock: 0,
+    category: "",
+    dosageForm: "",
+    dosageInstructions: "",
+    sideEffects: "",
+    interactions: "",
+    manufacturer: "",
+    expiryDate: "",
   });
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // Effect to set medication data when it is fetched
   useEffect(() => {
     if (medicationData) {
-      setMedication(medicationData); // Set the medication data to local state
+      setMedication(medicationData);
     }
   }, [medicationData]);
 
-  // Handle image change
   const handleImageChange = (e) => {
     setSelectedImage(e.target.files[0]);
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("name", medication.name);
-      formData.append("description", medication.description);
-      formData.append("price", medication.price);
+      Object.entries(medication).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
       if (selectedImage) {
         formData.append("image", selectedImage);
       }
 
       await updateMedication({ id, medication: formData }).unwrap();
       toast.success("Medication updated successfully!");
-      navigate("/admin/dashboard"); // Redirect after successful update
+      navigate("/admin/dashboard");
     } catch (error) {
       console.error("Failed to update medication:", error);
       toast.error("Failed to update medication.");
     }
   };
 
-  // Loading and error handling
   if (isFetching) return <h1>Loading...</h1>;
   if (error) return <h1>Error: {error.message}</h1>;
 
@@ -116,6 +118,118 @@ const UpdateMedicationScreen = () => {
                       setMedication({
                         ...medication,
                         price: Number(e.target.value),
+                      })
+                    }
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="stock">
+                  <Form.Label>Stock:</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={medication.stock}
+                    onChange={(e) =>
+                      setMedication({
+                        ...medication,
+                        stock: Number(e.target.value),
+                      })
+                    }
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="category">
+                  <Form.Label>Category:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={medication.category}
+                    onChange={(e) =>
+                      setMedication({
+                        ...medication,
+                        category: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="dosageForm">
+                  <Form.Label>Dosage Form:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={medication.dosageForm}
+                    onChange={(e) =>
+                      setMedication({
+                        ...medication,
+                        dosageForm: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="dosageInstructions">
+                  <Form.Label>Dosage Instructions:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={medication.dosageInstructions}
+                    onChange={(e) =>
+                      setMedication({
+                        ...medication,
+                        dosageInstructions: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="sideEffects">
+                  <Form.Label>Side Effects (comma-separated):</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={medication.sideEffects}
+                    onChange={(e) =>
+                      setMedication({
+                        ...medication,
+                        sideEffects: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="interactions">
+                  <Form.Label>Interactions (comma-separated):</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={medication.interactions}
+                    onChange={(e) =>
+                      setMedication({
+                        ...medication,
+                        interactions: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="manufacturer">
+                  <Form.Label>Manufacturer:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={medication.manufacturer}
+                    onChange={(e) =>
+                      setMedication({
+                        ...medication,
+                        manufacturer: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="expiryDate">
+                  <Form.Label>Expiry Date:</Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={medication.expiryDate}
+                    onChange={(e) =>
+                      setMedication({
+                        ...medication,
+                        expiryDate: e.target.value,
                       })
                     }
                     required
