@@ -2,13 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  padding-top: 60px;
+  margin-top: 60px;
   background-color: #cee6ec52;
-  padding: 20px;
-  margin: 40px;
-  border-radius: 190px;
+  border-radius: 50px;
   box-shadow: 0 22px 5px rgba(0, 0, 0, 0.1);
   animation: slideIn 1.4s ease-in-out;
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 @keyframes slideIn {

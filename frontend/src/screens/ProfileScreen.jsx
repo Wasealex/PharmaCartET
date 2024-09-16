@@ -62,9 +62,6 @@ const ProfileScreen = () => {
     <div className="sign-screen">
       {isLoading && <Loader />}
       <FormContainer>
-        <h1>Update Profile</h1>
-      </FormContainer>
-      <FormContainer>
         <img
           src={profileImage}
           alt="profile"

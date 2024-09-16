@@ -100,11 +100,11 @@ const RegisterScreen = () => {
           <Button type="submit" variant="primary" className="my-3">
             SignUp
           </Button>
-          <Row className="py-3">
+          <Row>
             <Col>
-              Have an Account?{" "}
+              Have an Account?
               <Link className="link" to="/login">
-                Login
+                LogIn
               </Link>
             </Col>
           </Row>
