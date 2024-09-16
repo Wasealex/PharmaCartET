@@ -1,5 +1,6 @@
 import React from "react";
-import { ListGroup } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+import "../../styles/welcome.styles.css";
 
 const CategoryFilter = ({
   categories,
@@ -8,10 +9,7 @@ const CategoryFilter = ({
   medications,
 }) => {
   return (
-    <ListGroup>
-      <ListGroup.Item action onClick={() => setSelectedCategory("All")}>
-        All Medications ({medications.length})
-      </ListGroup.Item>
+    <Row className="category-filter-list">
       {categories.map((category) => {
         const count = medications.filter(
           (med) =>
@@ -21,17 +19,29 @@ const CategoryFilter = ({
         ).length;
 
         return (
-          <ListGroup.Item
-            key={category}
-            action
-            active={selectedCategory === category}
-            onClick={() => setSelectedCategory(category)}
-          >
-            {category} ({count})
-          </ListGroup.Item>
+          <Col key={category} md={2} className="mb-2">
+            <div
+              className={`category-filter-item ${
+                selectedCategory === category ? "active" : ""
+              }`}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category} ({count})
+            </div>
+          </Col>
         );
       })}
-    </ListGroup>
+      <Col md={2} className="mb-2">
+        <div
+          className={`category-filter-item ${
+            selectedCategory === "All" ? "active" : ""
+          }`}
+          onClick={() => setSelectedCategory("All")}
+        >
+          All Medications ({medications.length})
+        </div>
+      </Col>
+    </Row>
   );
 };
 

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import MedicationList from "../components/medication/MedicationList.jsx";
 import CategoryFilter from "../components/medication/CategoryFilter.jsx";
 import MedicationDetails from "../components/medication/MedicationDetails.jsx";
+import Loader from "../components/Loader.jsx";
 
 const Welcome = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -45,7 +46,7 @@ const Welcome = () => {
     setSelectedMedication(null);
   };
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <Loader />;
   if (error) return <h1>Error: {error.message}</h1>;
 
   // Get unique categories
@@ -63,17 +64,22 @@ const Welcome = () => {
   );
 
   return (
-    <Container>
-      <h1>Welcome {userName}, here are your medications:</h1>
-      <Button
-        variant="primary"
-        onClick={() => navigate("/drug-interaction-checker")}
-        className="mt-3"
-      >
-        Drug Interaction Checker
-      </Button>
+    <Container className="welcome">
+      <div className="welcome__header">
+        <h1>Welcome {userName}</h1>
+      </div>
+      <hr className="welcome__hr" />
+      <div className="welcome__features_header">
+        <Button
+          variant="primary"
+          onClick={() => navigate("/drug-interaction-checker")}
+          className="mt-3"
+        >
+          Drug Interaction Checker
+        </Button>
+      </div>
       {/* Search Box */}
-      <Form.Group controlId="searchMedication">
+      <Form.Group controlId="searchMedication" className="welcome__search">
         <Form.Control
           type="text"
           placeholder="Search medications..."
@@ -82,40 +88,37 @@ const Welcome = () => {
         />
       </Form.Group>
 
-      <Row>
-        <Col md={3}>
-          <h4>Categories</h4>
-          <CategoryFilter
-            categories={categories}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-            medications={medications}
-          />
-        </Col>
-        <Col md={9}>
-          <MedicationList
-            medications={searchedMedications}
-            searchTerm={searchTerm}
-            handleAddToCart={handleAddToCart}
-            handleViewDetails={handleViewDetails}
-            isAdding={isAdding}
-            addError={addError}
-            loadingId={loadingId} // Pass loadingId to MedicationList
-          />
+      {/* Category Filter */}
+      <CategoryFilter
+        categories={categories}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        medications={medications}
+      />
+      <hr className="welcome__hr" />
+      <MedicationList
+        medications={searchedMedications}
+        searchTerm={searchTerm}
+        handleAddToCart={handleAddToCart}
+        handleViewDetails={handleViewDetails}
+        isAdding={isAdding}
+        addError={addError}
+        loadingId={loadingId}
+      />
 
-          {/* Modal for Medication Details */}
-          <Modal show={showModal} onHide={handleCloseModal} size="lg">
-            <Modal.Header closeButton>
-              <Modal.Title>Medication Details</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {selectedMedication && (
-                <MedicationDetails medication={selectedMedication} />
-              )}
-            </Modal.Body>
-          </Modal>
-        </Col>
-      </Row>
+      {/* Modal for Medication Details */}
+      <Modal show={showModal} onHide={handleCloseModal} size="lg">
+        <Modal.Header closeButton className="modal-header">
+          <Modal.Title className="medication-details-title">
+            Medication Details
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="modal-body modal-content">
+          {selectedMedication && (
+            <MedicationDetails medication={selectedMedication} />
+          )}
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 };
