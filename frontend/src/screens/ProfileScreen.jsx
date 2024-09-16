@@ -7,8 +7,9 @@ import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import { setCredentials } from "../slices/authSlice";
 import { useUpdateUserMutation } from "../slices/usersApiSlice";
-import defaultImg from "../assets/default/defaultprofile.png"; // Import the default image
-import { parseImageUrl } from "../utils/imageUtils"; // Import the parseImageUrl function
+import defaultImg from "../assets/default/defaultprofile.png";
+import { parseImageUrl } from "../utils/imageUtils";
+import "../styles/signing.style.css";
 
 const ProfileScreen = () => {
   const [name, setName] = useState("");
@@ -58,7 +59,7 @@ const ProfileScreen = () => {
   };
 
   return (
-    <div className="login-screen">
+    <div className="sign-screen">
       {isLoading && <Loader />}
       <FormContainer>
         <h1>Update Profile</h1>

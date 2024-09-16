@@ -20,7 +20,7 @@
 
 .header-brand img {
   width: 30px;
-  margin-right: 0.5rem;
+  margin: 0.5rem;
 }
 
 .header-toggle {
@@ -29,15 +29,16 @@
 
 .header-collapse {
   justify-content: flex-end;
+  margin: 0.5rem;
 }
 
 .header-nav {
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: center;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 10;
+  padding: 10;
 }
 
 .header-dropdown {

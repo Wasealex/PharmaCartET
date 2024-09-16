@@ -98,7 +98,7 @@ const RegisterScreen = () => {
           </Form.Group>
           {isLoading && <Loader />}
           <Button type="submit" variant="primary" className="my-3">
-            Sign up
+            SignUp
           </Button>
           <Row className="py-3">
             <Col>

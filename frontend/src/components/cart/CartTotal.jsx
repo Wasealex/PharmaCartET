@@ -50,7 +50,7 @@ const CartTotal = ({ cart }) => {
       </Table>
       <div className="d-flex justify-content-end">
         <Button
-          variant="success"
+          variant="primary"
           onClick={() => {
             navigate("/checkout");
             window.location.reload();
@@ -59,7 +59,7 @@ const CartTotal = ({ cart }) => {
         >
           Checkout
         </Button>
-        <Button variant="primary" onClick={handleCopy} className="mb-3">
+        <Button variant="success" onClick={handleCopy} className="mb-3">
           {isCopied ? "Copied!" : "Copy order details"}
         </Button>
       </div>

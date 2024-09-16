@@ -5,6 +5,7 @@ import { Table, Button, Form, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import OrderDetails from "../components/order/OrderDetails";
+import "../styles/welcome.styles.css";
 
 const OrderScreen = () => {
   const navigate = useNavigate();

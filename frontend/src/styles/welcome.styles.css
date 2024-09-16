@@ -32,12 +32,12 @@ h1 {
 }
 
 .btn-secondary {
-  background-color: #c4280c; /* Custom secondary color */
+  background-color: #911a06; /* Custom secondary color */
   border-color: #6c757d; /* Custom border color */
 }
 
 .btn-secondary:hover {
-  background-color: #b98986; /* Darker secondary on hover */
+  background-color: #d83428; /* Darker secondary on hover */
 }
 /* Custom Button Styles */
 .button-3 {
@@ -298,7 +298,20 @@ h1 {
 
 /* Form Control Styles */
 .form-control {
-  border-radius: 5px; /* Rounded corners for inputs */
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: #005f56 solid 1px;
+
+  padding: 10px;
+  font-size: 16px;
+  color: #555;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-control-upload {
+  width: 30%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .form-control:focus {

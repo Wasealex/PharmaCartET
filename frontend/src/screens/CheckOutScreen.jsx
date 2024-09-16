@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useGetCartQuery } from "../slices/cartApiSlice";
 import { useCreateOrderMutation } from "../slices/orderApiSlice";
 import { useAddPaymentMethodMutation } from "../slices/paymentApiSlice";
-import { Table, Button, Form, Image } from "react-bootstrap";
+import { Table, Button, Form, Image, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
+import "../styles/welcome.styles.css";
 
 const CheckOutScreen = () => {
   const navigate = useNavigate();
@@ -55,14 +56,31 @@ const CheckOutScreen = () => {
 
   return (
     <div>
-      <h1 className="text-center">Upload Prescription</h1>
+      <hr className="welcome__hr" />
+      <Card className="medication-card-price medication-card-container">
+        <Card.Body>
+          <Card.Title className="medication-card-title blink-me">
+            Information
+          </Card.Title>
+          <Card.Text>
+            You are almost there, to proced please upload your prescription so
+            that we can check they match with order to successfully deliver on
+            your way , N.B if you do not have a valid prescription please do not
+            continue to pay here
+          </Card.Text>
+        </Card.Body>
+      </Card>
+      <hr className="welcome__hr" />
       <Form>
         <Form.Group controlId="formFile" className="mb-3">
-          <Form.Label>Upload Prescription</Form.Label>
+          <Form.Label className="form-control form-control-upload">
+            Upload Prescription
+          </Form.Label>
           <Form.Control
             type="file"
             onChange={handlePrescriptionChange}
             accept=".pdf,.jpeg,.jpg,.png"
+            className="form-control form-control-upload"
           />
           {prescriptionFile && (
             <div className="mt-3">
@@ -77,8 +95,9 @@ const CheckOutScreen = () => {
           )}
         </Form.Group>
       </Form>
-
-      <h1 className="text-center">Order Summary</h1>
+      <hr className="welcome__hr" />
+      <h1>Order Summary</h1>
+      <hr className="welcome__hr" />
       <Table striped bordered hover>
         <thead>
           <tr>

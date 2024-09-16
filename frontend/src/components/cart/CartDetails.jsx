@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import CartHeader from "./CartHeader";
 import CartItems from "./CartItems";
 import CartTotal from "./CartTotal";
+import Loader from "../Loader";
 
 const CartDetails = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const CartDetails = () => {
   const [updateItem] = useUpdateCartMutation();
   const [clearCart] = useClearCartMutation();
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <Loader />;
   if (error) return <h1>Error: {error.message}</h1>;
 
   const handleAddToCart = (itemId) => {
