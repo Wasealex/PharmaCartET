@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import { setCredentials } from "../slices/authSlice";
 import { CiKeyboard, CiLock, CiMail } from "react-icons/ci";
+import "../styles/signing.style.css";
 const RegisterScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,7 +41,7 @@ const RegisterScreen = () => {
   };
 
   return (
-    <div className="login-screen">
+    <div className="sign-screen">
       <FormContainer>
         <h1>Sign Up</h1>
         <Form onSubmit={submitHandler}>
@@ -101,7 +102,10 @@ const RegisterScreen = () => {
           </Button>
           <Row className="py-3">
             <Col>
-              Have an Account? <Link to="/login">Login</Link>
+              Have an Account?{" "}
+              <Link className="link" to="/login">
+                Login
+              </Link>
             </Col>
           </Row>
         </Form>

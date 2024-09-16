@@ -1,0 +1,32 @@
+.sign-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  background-color: #cee6ec52;
+  padding: 20px;
+  margin: 40px;
+  border-radius: 190px;
+  box-shadow: 0 22px 5px rgba(0, 0, 0, 0.1);
+  animation: slideIn 1.4s ease-in-out;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.link {
+  color: #f8f2f2;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 10px;
+  background-color: #0e3316;
+  border-color: #000 solid 1px;
+  border-radius: 30px;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}

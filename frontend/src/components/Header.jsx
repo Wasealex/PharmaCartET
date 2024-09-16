@@ -11,6 +11,7 @@ import { clearCredentials } from "../slices/authSlice";
 import logo from "../assets/images/logos/Logo02.png";
 import defaultImg from "../assets/default/defaultprofile.png";
 import { parseImageUrl } from "../utils/imageUtils";
+import "../styles/header.style.css";
 
 const Header = () => {
   const userInfo = useSelector((state) => state.auth);
@@ -42,78 +43,70 @@ const Header = () => {
 
   return (
     <header className="header">
-      <Navbar bg="dark" variant="dark" expand="lg" className="shadow-sm">
-        <Container>
-          <LinkContainer to="/">
-            <Navbar.Brand>
-              <img src={logo} alt="PharmaCart" width="30" className="me-2" />
-              PharmaCart
-            </Navbar.Brand>
-          </LinkContainer>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse
-            id="basic-navbar-nav"
-            className="justify-content-end"
-          >
-            <Nav className="align-items-center">
-              {userName ? (
-                <>
-                  <NavDropdown
-                    title={
-                      <>
-                        <img
-                          src={profileImage}
-                          alt={userName}
-                          width="30"
-                          className="rounded-circle me-2"
-                        />
-                        {userName}
-                      </>
-                    }
-                    id="username"
-                    align="end"
-                  >
-                    {isAdmin && (
-                      <LinkContainer to="/admin/dashboard">
-                        <NavDropdown.Item>
-                          <CiLock /> Admin Dashboard
-                        </NavDropdown.Item>
-                      </LinkContainer>
-                    )}
-                    <LinkContainer to="/profile">
+      <Navbar expand="lg" className="header-container">
+        <LinkContainer to="/" className="header-brand">
+          <Navbar.Brand>
+            <img src={logo} alt="PharmaCart" />
+            PharmaCart
+          </Navbar.Brand>
+        </LinkContainer>
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          className="header-toggle"
+        />
+        <Navbar.Collapse id="basic-navbar-nav" className="header-collapse">
+          <Nav className="header-nav">
+            {userName ? (
+              <>
+                <NavDropdown
+                  title={
+                    <div className="header-dropdown">
+                      <img src={profileImage} alt={userName} />
+                      {userName}
+                    </div>
+                  }
+                  id="username"
+                  align="end"
+                >
+                  {isAdmin && (
+                    <LinkContainer to="/admin/dashboard">
                       <NavDropdown.Item>
-                        <BsPersonCircle /> Profile
+                        <CiLock /> Admin Dashboard
                       </NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/cart">
-                      <NavDropdown.Item>
-                        <BsCart4 />
-                        Cart <Badge bg="danger">{cartCount}</Badge>
-                      </NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      <CiLogout />
-                      Logout
+                  )}
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>
+                      <BsPersonCircle /> Profile
                     </NavDropdown.Item>
-                  </NavDropdown>
-                </>
-              ) : (
-                <>
-                  <LinkContainer to="/login">
-                    <Nav.Link>
-                      <FaSignInAlt /> Sign in
-                    </Nav.Link>
                   </LinkContainer>
-                  <LinkContainer to="/signup">
-                    <Nav.Link>
-                      <FaSignOutAlt /> Sign up
-                    </Nav.Link>
+                  <LinkContainer to="/cart">
+                    <NavDropdown.Item>
+                      <BsCart4 />
+                      Cart <Badge className="header-badge">{cartCount}</Badge>
+                    </NavDropdown.Item>
                   </LinkContainer>
-                </>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    <CiLogout /> Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
+            ) : (
+              <>
+                <LinkContainer to="/login">
+                  <Nav.Link className="header-link">
+                    <FaSignInAlt /> Sign in
+                  </Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/signup">
+                  <Nav.Link className="header-link">
+                    <FaSignOutAlt /> Sign up
+                  </Nav.Link>
+                </LinkContainer>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     </header>
   );

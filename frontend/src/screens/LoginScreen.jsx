@@ -8,6 +8,7 @@ import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
+import "../styles/signing.style.css";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ const LoginScreen = () => {
     }
   };
   return (
-    <div className="login-screen">
+    <div className="sign-screen">
       <FormContainer>
         <h1>Sign In</h1>
         <Form onSubmit={submitHandler}>
@@ -68,12 +69,12 @@ const LoginScreen = () => {
           </Button>
         </Form>
 
-        <Row className="py-3">
+        <Row className="py-5">
           <Col>
-            New Customer? <Link to="/signup">Register</Link>
-          </Col>
-          <Col>
-            Forgot Password? <Link to="/forgotpassword">Forgot Password</Link>
+            New Customer?{" "}
+            <Link className="link" to="/signup">
+              SignUp
+            </Link>
           </Col>
         </Row>
       </FormContainer>

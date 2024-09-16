@@ -3,7 +3,7 @@ body {
   background-color: #f8f9fa; /* Light background for contrast */
   font-family: "Arial", sans-serif;
   margin: 0;
-  padding: 20px;
+  padding: 60px 60px;
 }
 
 h1 {
@@ -28,7 +28,7 @@ h1 {
 }
 
 .btn-primary:hover {
-  background-color: #5fb300; /* Darker blue on hover */
+  background-color: #2b4909; /* Darker blue on hover */
 }
 
 .btn-secondary {
