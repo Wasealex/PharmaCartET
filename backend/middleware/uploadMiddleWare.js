@@ -22,5 +22,18 @@ const storage = multer.diskStorage({
   },
 });
 
+// Set up file filter configuration for multer
+const fileFilter = function (req, file, cb) {
+  // Only allow PNG files with a maximum size of 1MB
+  if (file.mimetype === "image/png" && file.size <= 1048576) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only PNG files with a maximum size of 1MB are allowed"));
+  }
+};
+
 // Create the multer upload instance
-export const upload = multer({ storage: storage });
+export const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+});

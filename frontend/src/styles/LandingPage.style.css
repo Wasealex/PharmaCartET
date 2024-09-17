@@ -74,19 +74,52 @@ body {
 }
 
 /* Features Section Styles */
+/* Landing Page Styles */
+/* Landing Page Styles */
 .features-section {
-  padding: 0;
-  width: 100%;
+  margin: 20px auto; /* Center the section */
+  padding: 20px; /* Add some padding */
 }
 
 .features-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80vw;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
+  width: 100%; /* Make the image responsive */
+  max-height: 400px; /* Set a max height */
+  object-fit: cover; /* Ensure the image covers the area */
+  border-radius: 8px; /* Add some rounding to the corners */
+  margin-bottom: 20px; /* Space below the image */
+}
+
+.feature-card {
+  text-align: center; /* Center align text in cards */
+  border: 1px solid #e0e0e0; /* Add border to cards */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+  transition: transform 0.3s, box-shadow 0.3s; /* Add transition for hover effects */
+}
+
+.feature-card:hover {
+  transform: scale(1.05); /* Scale up on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.feature-card-img {
+  max-height: 200px; /* Set a max height for images in cards */
+  object-fit: cover; /* Cover the image area */
+}
+
+.feature-card-title {
+  margin-top: 10px; /* Space above the title */
+}
+
+/* Add responsive styles */
+@media (max-width: 768px) {
+  .features-image {
+    max-height: 300px; /* Adjust max height for smaller screens */
+  }
+
+  .feature-card {
+    margin-bottom: 15px; /* Adjust margin for smaller screens */
+  }
 }
 
 /* Background Color Utilities */
