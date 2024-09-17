@@ -11,7 +11,7 @@ import {
   getMedicationByFilter,
 } from "../controllers/medicationController.js";
 import { protect, adminUser } from "../middleware/authMiddleWare.js";
-import { upload } from "../middleware/uploadMiddleware.js";
+import { upload } from "../middleware/uploadMiddleWare.js";
 
 const router = express.Router();
 

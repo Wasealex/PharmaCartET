@@ -1,6 +1,6 @@
 import express from "express";
 import { protect, adminUser } from "../middleware/authMiddleWare.js";
-import { upload } from "../middleware/uploadMiddleware.js";
+import { upload } from "../middleware/uploadMiddleWare.js";
 import {
   getOrderById,
   createOrder,
