@@ -2,7 +2,7 @@ import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import "../../styles/LandingPage.style.css";
 import "../../styles/welcome.styles.css";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-import cto from "../../assets/images/cto.png";
+import cto from "../../assets/images/CTO.png";
 
 const contributors = [
   {
