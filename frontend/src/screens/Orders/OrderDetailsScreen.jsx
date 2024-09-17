@@ -29,6 +29,11 @@ const OrderDetailsScreen = () => {
   const prescriptionImageDefault =
     prescriptionImage === "/" ? defaultimg : prescriptionImage;
 
+  console.log(prescriptionImage);
+  console.log(prescriptionImageDefault);
+  console.log(defaultimg);
+  console.log(parseImageUrl(order?.imageUrl));
+
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 

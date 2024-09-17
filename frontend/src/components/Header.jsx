@@ -23,6 +23,8 @@ const Header = () => {
     userProfileImage && parseImageUrl(userProfileImage) !== defaultImg
       ? parseImageUrl(userProfileImage)
       : defaultImg;
+  console.log(profileImage);
+  console.log(userProfileImage);
 
   const isAdmin = userInfo?.userInfo?.isAdmin;
   const navigate = useNavigate();
