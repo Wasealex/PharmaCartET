@@ -7,6 +7,8 @@ import "../../styles/medicationDetails.style.css";
 const MedicationDetails = ({ medication }) => {
   const parsedImageUrl = "/" + parseImageUrl(medication.imageUrl);
   const medicationImage = parsedImageUrl === "/" ? defaultimg : parsedImageUrl;
+  console.log(parsedImageUrl);
+  console.log(medicationImage);
 
   return (
     <Container className="medication-details-container">
