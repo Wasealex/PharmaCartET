@@ -32,7 +32,6 @@ const AdminScreen = () => {
 
   return (
     <div>
-      <h1>Admin Dashboard</h1>
       <AdminDashboard
         onManageMedications={handleManageMedications}
         onManageOrders={handleManageOrders}

@@ -6,10 +6,10 @@ import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import OrderDetails from "../components/order/OrderDetails";
 import "../styles/welcome.styles.css";
+import "../styles/orderScreen.styles.css";
 
 const OrderScreen = () => {
   const navigate = useNavigate();
-
   const { data: orders, isLoading } = useGetOrdersQuery();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -58,9 +58,11 @@ const OrderScreen = () => {
   );
 
   return (
-    <div>
-      <Form className="mb-3">
+    <div className="order-screen-container">
+      <hr className="welcome__hr" />
+      <Form className="welcome__search welcome__search-input">
         <Form.Control
+          className="order-screen-form-control order-screen-search-input"
           type="text"
           placeholder="Search by user name"
           value={searchTerm}
@@ -69,6 +71,7 @@ const OrderScreen = () => {
       </Form>
       <Form className="mb-3">
         <Form.Select
+          className="welcome__search welcome__search-input"
           aria-label="Sort by"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
@@ -78,8 +81,10 @@ const OrderScreen = () => {
           <option value="userName">Sort by user name</option>
         </Form.Select>
       </Form>
-      <h2>Subtotal: ${subtotal.toFixed(2)}</h2>
-      <Table striped bordered hover responsive className="table-sm">
+      <h2 className="order-screen-subtotal-heading">
+        Subtotal: ${subtotal.toFixed(2)}
+      </h2>
+      <Table className="order-screen-table striped bordered hover responsive">
         <thead>
           <tr>
             <th>ID</th>
@@ -95,11 +100,11 @@ const OrderScreen = () => {
               <td>{order._id}</td>
               <td>{order.user.name}</td>
               <td>{order.createdAt.substring(0, 10)}</td>
-              <td>${order.totalPrice}</td>
+              <td>${order.totalPrice.toFixed(2)}</td>
               <td>
                 <Button
+                  className="order-screen-btn-light"
                   onClick={() => handleViewOrder(order._id)}
-                  variant="light"
                 >
                   Details
                 </Button>
@@ -109,11 +114,18 @@ const OrderScreen = () => {
         </tbody>
       </Table>
       {showDetails && (
-        <Card style={{ width: "300px", position: "absolute", right: "20px" }}>
-          <Card.Header closeButton onClick={handleClose}>
+        <Card
+          className="order-screen-card"
+          style={{ width: "300px", position: "absolute", right: "20px" }}
+        >
+          <Card.Header
+            className="order-screen-card-header"
+            closeButton
+            onClick={handleClose}
+          >
             Order Details
           </Card.Header>
-          <Card.Body>
+          <Card.Body className="order-screen-card-body">
             <OrderDetails order={selectedOrder} />
           </Card.Body>
         </Card>
@@ -121,4 +133,5 @@ const OrderScreen = () => {
     </div>
   );
 };
+
 export default OrderScreen;

@@ -2,13 +2,22 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetOrderByIdQuery } from "../../slices/orderApiSlice";
 import { Container, Row, Col, Card, Table } from "react-bootstrap";
+import Loader from "../Loader";
 
 const OrderDetails = () => {
   const params = useParams();
-  const { data: order } = useGetOrderByIdQuery(params.id);
+  const { data: order, isLoading, error } = useGetOrderByIdQuery(params.id);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   if (!order) {
-    return <div>Loading...</div>;
+    return <div>No order found.</div>;
   }
 
   return (
@@ -42,7 +51,7 @@ const OrderDetails = () => {
                   </tbody>
                 </Table>
                 <Card.Text>
-                  <b>Total</b>: ${order.totalPrice}
+                  <b>Total</b>: ${order.totalPrice.toFixed(2)}
                 </Card.Text>
               </Card.Body>
             </Card>

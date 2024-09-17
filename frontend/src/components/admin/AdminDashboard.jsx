@@ -1,6 +1,7 @@
 // src/components/admin/AdminDashboard.jsx
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import "../../styles/AdminDashboard.style.css";
 
 const AdminDashboard = ({
   onManageMedications,
@@ -10,16 +11,23 @@ const AdminDashboard = ({
   onShowGraphs,
 }) => {
   return (
-    <Container className="mt-5">
-      <Row className="d-flex justify-content-center">
+    <Container className="admin-dashboard-container mt-5">
+      <hr className="welcome__hr" />
+      <h1>Admin Dashboard</h1>
+      <Row className="admin-dashboard-row d-flex justify-content-center">
         <Col md={4} className="text-center">
-          <Button variant="primary" size="lg" block onClick={onManageOrders}>
+          <Button
+            className="admin-dashboard-btn-primary"
+            size="lg"
+            block
+            onClick={onManageOrders}
+          >
             Manage Orders
           </Button>
         </Col>
         <Col md={4} className="text-center">
           <Button
-            variant="primary"
+            className="admin-dashboard-btn-primary"
             size="lg"
             block
             onClick={onManageMedications}
@@ -28,10 +36,10 @@ const AdminDashboard = ({
           </Button>
         </Col>
       </Row>
-      <Row className="d-flex justify-content-center mt-3">
+      <Row className="admin-dashboard-row d-flex justify-content-center mt-3">
         <Col md={4} className="text-center">
           <Button
-            variant="secondary"
+            className="admin-dashboard-btn-secondary"
             size="lg"
             block
             onClick={onManageInventories}
@@ -40,14 +48,24 @@ const AdminDashboard = ({
           </Button>
         </Col>
         <Col md={4} className="text-center">
-          <Button variant="secondary" size="lg" block onClick={onManageSales}>
+          <Button
+            className="admin-dashboard-btn-secondary"
+            size="lg"
+            block
+            onClick={onManageSales}
+          >
             Manage Sales
           </Button>
         </Col>
       </Row>
-      <Row className="d-flex justify-content-center mt-3">
+      <Row className="admin-dashboard-row d-flex justify-content-center mt-3">
         <Col md={4} className="text-center">
-          <Button variant="success" size="lg" block onClick={onShowGraphs}>
+          <Button
+            className="admin-dashboard-btn-success"
+            size="lg"
+            block
+            onClick={onShowGraphs}
+          >
             Show Graphs
           </Button>
         </Col>

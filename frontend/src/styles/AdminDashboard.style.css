@@ -1,0 +1,77 @@
+/* Admin Dashboard Styles */
+.admin-dashboard-container {
+  margin-top: 40px; /* Spacing from the top */
+}
+.admin-dashboard-container h1 {
+  font-size: 2.5rem; /* Larger font size */
+  margin-bottom: 20px; /* Spacing from the heading */
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #333;
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.admin-dashboard-row {
+  margin-bottom: 20px; /* Space between button rows */
+}
+
+.admin-dashboard-title {
+  font-size: 2.5rem; /* Larger font size */
+  margin-bottom: 20px; /* Spacing from the heading */
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #333;
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.admin-dashboard-button {
+  border-radius: 5px; /* Rounded corners for buttons */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition effects */
+}
+
+.admin-dashboard-button:hover {
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+.admin-dashboard-button:active {
+  transform: translateY(1px); /* Slight press effect */
+}
+
+/* Specific button styles */
+.admin-dashboard-btn-primary {
+  background-color: #007bff; /* Primary button color */
+  border-color: #007bff; /* Border color */
+}
+
+.admin-dashboard-btn-primary:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.admin-dashboard-btn-secondary {
+  background-color: #6c757d; /* Secondary button color */
+  border-color: #6c757d; /* Border color */
+}
+
+.admin-dashboard-btn-secondary:hover {
+  background-color: #5a6268; /* Darker shade on hover */
+}
+
+.admin-dashboard-btn-success {
+  background-color: #28a745; /* Success button color */
+  border-color: #28a745; /* Border color */
+}
+
+.admin-dashboard-btn-success:hover {
+  background-color: #218838; /* Darker shade on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-dashboard-container {
+    padding: 0 15px; /* Padding for smaller screens */
+  }
+}
