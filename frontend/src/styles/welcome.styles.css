@@ -1,0 +1,342 @@
+/* Global Styles */
+body {
+  background-color: #f8f9fa; /* Light background for contrast */
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 60px 60px;
+}
+
+h1 {
+  color: #343a40; /* Darker text for better readability */
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Override Bootstrap button styles */
+.btn {
+  border-radius: 25px; /* Custom border radius */
+  padding: 10px 20px; /* Custom padding */
+  font-weight: bold; /* Custom font weight */
+  box-shadow: 0 20px 21px rgba(0, 0, 0, 0.2); /* Custom box shadow */
+}
+
+/* Modify specific Bootstrap button variants */
+.btn-primary {
+  border: none;
+  background-color: #0e3316; /* Custom primary color */
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #2b4909; /* Darker blue on hover */
+}
+
+.btn-secondary {
+  background-color: #911a06; /* Custom secondary color */
+  border-color: #6c757d; /* Custom border color */
+}
+
+.btn-secondary:hover {
+  background-color: #d83428; /* Darker secondary on hover */
+}
+/* Custom Button Styles */
+.button-3 {
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+/* Additional Welcome component styles */
+.welcome {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.welcome__header {
+  color: #343a40;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.welcome__features_header {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 20px;
+}
+
+.welcome__hr {
+  border-top: 1px solid #dee2e6;
+  margin-bottom: 40px;
+}
+
+.welcome__search {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  border: #cdd3d2 solid 1px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.welcome__search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  background-color: transparent;
+  color: #333;
+  border-radius: 30px;
+}
+
+.welcome__medication-list {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.welcome__button {
+  float: right; /* Align button to the right */
+  margin-top: -50px; /* Adjust vertical alignment */
+}
+
+/* Medication List Card */
+.medication-card {
+  gap: 1px; /* Adds space between cards */
+}
+.medication-card-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0e3316;
+}
+.medication-card-container {
+  border: none;
+  margin: 1px;
+  padding: 15px;
+  border-radius: 20px;
+  background: #f0f4f8; /* Soft light background color */
+  box-shadow: 0 16px 18px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.medication-card-container:hover {
+  transform: translateX(8px) scale(1.08); /* Slight lift on hover */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* Enhanced shadow on hover */
+}
+
+.medication-card-content-container {
+  background-color: #f2f4f5;
+  padding: 55px;
+  border-radius: 15px;
+  box-shadow: 0 13px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.medication-card-content-container:hover {
+  transform: scale(1.1);
+}
+
+.medication-card-title {
+  font-size: 1.6rem;
+  color: #005f56;
+  font-weight: bold;
+}
+.medication-card-open-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: #0e3316;
+  margin: 10px; /* Margin around the button */
+  padding: 0; /* No padding */
+  border: none; /* Remove border */
+  background-color: transparent; /* Transparent background */
+  color: #02aa9c;
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.medication-card-open-button:hover {
+  transform: scale(1.1); /* Scale button on hover */
+}
+
+.medication-card-text {
+  font-size: 1rem; /* Consistent font size for text */
+  color: #333; /* Darker gray for better readability */
+  margin: 10px 0; /* Spacing around text */
+}
+
+.medication-card-button {
+  background-color: #00796b; /* Primary button color */
+  color: white; /* White text for visibility */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Comfortable padding */
+  border-radius: 5px; /* Rounded button corners */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.medication-card-button:hover {
+  background-color: #005f56; /* Darken button on hover */
+  transform: translateY(-12px); /* Slight lift on hover */
+}
+
+.medication-card-button-info {
+  background-color: #17a2b8; /* Info button color */
+  color: white; /* White text for visibility */
+  margin-left: 10px; /* Space between buttons */
+}
+
+/* Adjust button spacing */
+.ms-2 {
+  margin-left: 0.5rem; /* Space between buttons */
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem; /* Smaller font size on mobile */
+  }
+
+  .welcome__header {
+    font-size: 1.5rem; /* Adjust header size on mobile */
+  }
+
+  .welcome__category-filter,
+  .welcome__medication-list {
+    padding: 10px;
+  }
+
+  .form-control {
+    margin-bottom: 15px; /* Space between inputs */
+  }
+}
+
+@media (max-width: 768px) {
+  .medication-card {
+    flex: 1 1 calc(50% - 20px); /* Two cards in a row on smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .medication-card {
+    flex: 1 1 calc(100% - 20px); /* One card in a row on very small screens */
+  }
+}
+.blink-me {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Category Filter Styles */
+.category-filter-container {
+  padding: 5px;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+.category-filter-list {
+  background-color: #f0f7f4; /* Lighter background for a fresh look */
+  padding: 10px;
+  border-radius: 10px; /* More rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.category-filter-item {
+  cursor: pointer;
+  border-radius: 25px; /* Simplified rounding */
+  box-shadow: 0 4px 20px rgba(0, 150, 136, 0.2);
+  padding: 5px; /* Added horizontal padding */
+  font-size: 16px; /* Increased font size */
+  color: #333; /* Darker text for better readability */
+  transition: all 0.3s ease;
+}
+
+.category-filter-item:hover {
+  background-color: #80cbc4; /* Lighter hover effect */
+  color: white; /* Change text color on hover */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.category-filter-item.active {
+  background-color: #00796b; /* Stronger active color */
+  color: white; /* Ensure text is readable */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Control Styles */
+.form-control {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: #005f56 solid 1px;
+
+  padding: 10px;
+  font-size: 16px;
+  color: #555;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-control-upload {
+  width: 30%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-control:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow */
+}
+
+/* Modal Styles */
+.modal-header {
+  background-color: #024b14; /* Blue header for the modal */
+  color: #ffffff;
+}
+.medication-details-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #80cbc4;
+  margin-bottom: 5px;
+}
+
+.modal-body {
+  padding: 10px;
+  background-color: #f0f7f4;
+}
+.modal-content {
+  background-color: #f0f7f4;
+  border-radius: 40px; /* Rounded corners for the modal */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}

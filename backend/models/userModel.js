@@ -20,7 +20,7 @@ const userSchema = mongoose.Schema(
       {
         quantity: {
           type: Number,
-          default: 1,
+          default: 0,
         },
         medication: {
           type: mongoose.Schema.Types.ObjectId,
@@ -31,6 +31,10 @@ const userSchema = mongoose.Schema(
     isAdmin: {
       type: Boolean,
       default: false,
+    },
+    ImageUrl: {
+      type: String,
+      default: "",
     },
   },
   {

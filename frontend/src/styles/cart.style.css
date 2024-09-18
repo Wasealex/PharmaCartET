@@ -1,0 +1,34 @@
+.refresh-button {
+  background-color: transparent;
+  border: none;
+  color: #0e3316;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.refresh-button:hover {
+  color: #02aa9c;
+}
+
+.refresh-button:focus {
+  outline: none;
+}
+
+.cart_logo {
+  width: 300px;
+  margin-right: 0.5rem;
+  font-size: 10rem;
+  color: #0e3316;
+  position: relative;
+  animation: moveLogo 8s linear infinite;
+}
+
+@keyframes moveLogo {
+  0% {
+    left: -20%;
+  }
+  100% {
+    left: 90%;
+  }
+}

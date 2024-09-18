@@ -1,0 +1,54 @@
+/* Medication Details Styles */
+.medication-details-container {
+  margin-top: 20px;
+}
+
+.medication-details-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.medication-details-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.medication-details-card-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.medication-details-card-text {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  padding: 10px 0; /* Add padding for better spacing */
+  border-top: 1px solid #e0e0e0; /* Top border for separation */
+}
+
+.medication-details-card-text:first-of-type {
+  border-top: none; /* Remove top border for the first text */
+}
+
+.medication-details-card-img {
+  width: 100px; /* Fixed size for images */
+  height: 150px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  object-fit: cover; /* Ensures the image fits nicely */
+}
+
+@media (max-width: 768px) {
+  .medication-details-card {
+    margin: 0 10px; /* Add some margin for smaller screens */
+  }
+
+  .medication-details-card-title {
+    font-size: 1.45rem;
+  }
+
+  .medication-details-card-text {
+    font-size: 0.9rem;
+  }
+}

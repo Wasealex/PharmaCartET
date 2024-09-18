@@ -1,0 +1,64 @@
+/* Order Screen Styles */
+.order-screen-container {
+  margin: 20px auto;
+  max-width: 1200px; /* Center the container */
+}
+
+.order-screen-table {
+  margin-top: 20px; /* Space above the table */
+}
+
+.order-screen-table th,
+.order-screen-table td {
+  text-align: center; /* Center align table text */
+}
+
+.order-screen-table th {
+  background-color: #f8f9fa; /* Light background for headers */
+  font-weight: bold;
+}
+
+.order-screen-table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f2f2f2; /* Light gray for odd rows */
+}
+
+.order-screen-subtotal-heading {
+  margin: 20px 0; /* Spacing for subtotal heading */
+  text-align: right; /* Align subtotal to the right */
+}
+
+.order-screen-form-control,
+.order-screen-form-select {
+  margin-bottom: 15px; /* Spacing below form elements */
+}
+
+.order-screen-btn-light {
+  background-color: #e9ecef; /* Light background for button */
+  border: 1px solid #ced4da; /* Border color */
+  transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+}
+
+.order-screen-btn-light:hover {
+  background-color: #ced4da; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.order-screen-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow for elevation */
+  transition: transform 0.3s; /* Transition for card */
+}
+
+.order-screen-card:hover {
+  transform: scale(1.02); /* Slight zoom on hover */
+}
+
+.order-screen-card-header {
+  display: flex; /* Flexbox for header */
+  justify-content: space-between; /* Space between elements */
+  align-items: center; /* Center items vertically */
+}
+
+.order-screen-card-body {
+  max-height: 300px; /* Limit height for card body */
+  overflow-y: auto; /* Scroll if content overflows */
+}

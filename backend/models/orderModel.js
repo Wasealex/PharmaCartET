@@ -35,7 +35,10 @@ const orderSchema = new mongoose.Schema(
     },
     chappaSessionId: {
       type: String,
-      required: true,
+    },
+    imageUrl: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

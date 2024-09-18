@@ -1,0 +1,176 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Intro Section Styles */
+.intro-section {
+  background-image: url("../assets/images/bg10.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.intro-section h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: #517a03;
+  text-emphasis: bold;
+}
+
+.intro-section p {
+  font-size: 1.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.intro-content {
+  background: rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  color: #faf2f2;
+}
+
+.intro-buttons {
+  margin-top: 20px;
+  display: flex;
+  padding: 20px;
+  margin: 10px;
+  justify-content: center;
+  padding: 30px;
+}
+
+.links {
+  text-decoration: none;
+  width: 100%;
+}
+
+.intro-section button:hover {
+  background-color: #0069d9;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Features Section Styles */
+/* Landing Page Styles */
+/* Landing Page Styles */
+.features-section {
+  margin: 20px auto; /* Center the section */
+  padding: 20px; /* Add some padding */
+}
+
+.features-image {
+  width: 100%; /* Make the image responsive */
+  max-height: 400px; /* Set a max height */
+  object-fit: cover; /* Ensure the image covers the area */
+  border-radius: 8px; /* Add some rounding to the corners */
+  margin-bottom: 20px; /* Space below the image */
+}
+
+.feature-card {
+  text-align: center; /* Center align text in cards */
+  border: 1px solid #e0e0e0; /* Add border to cards */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+  transition: transform 0.3s, box-shadow 0.3s; /* Add transition for hover effects */
+}
+
+.feature-card:hover {
+  transform: scale(1.05); /* Scale up on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.feature-card-img {
+  max-height: 200px; /* Set a max height for images in cards */
+  object-fit: cover; /* Cover the image area */
+}
+
+.feature-card-title {
+  margin-top: 10px; /* Space above the title */
+}
+
+/* Add responsive styles */
+@media (max-width: 768px) {
+  .features-image {
+    max-height: 300px; /* Adjust max height for smaller screens */
+  }
+
+  .feature-card {
+    margin-bottom: 15px; /* Adjust margin for smaller screens */
+  }
+}
+
+/* Background Color Utilities */
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.bg-secondary {
+  background-color: #dcdfe2 !important;
+}
+
+/* Contributors Section Styles */
+.contributors-section {
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.scroll-animation {
+  overflow: hidden; /* Prevents overflow */
+  white-space: nowrap; /* Prevents text from wrapping */
+  animation: scroll 10s linear infinite; /* Adjust duration as needed */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%); /* Start off-screen to the right */
+  }
+  100% {
+    transform: translateX(-100%); /* End off-screen to the left */
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .intro-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .intro-section p {
+    font-size: 1.8rem;
+  }
+
+  .intro-content {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .intro-section button {
+    width: 70px;
+    height: 35px;
+    font-size: 14px;
+  }
+}

@@ -2,123 +2,89 @@ import mongoose from "mongoose";
 
 const medicationSchema = new mongoose.Schema(
   {
-    // name of the medication only generic names
+    // Name of the medication (generic names only)
     name: {
       type: String,
       required: true,
+      trim: true,
+      unique: true, // Ensures no duplicate medication names
     },
-    // different brands of the same medication
-    brand: {
-      type: [String],
-      required: true,
-    },
-    // description of the medication
+    // Description of the medication
     description: {
       type: String,
       required: true,
+      trim: true,
     },
-    // true or false for over the counter or not(no need of prescription)
-    overTheCounter: {
-      type: Boolean,
-      default: false,
-    },
-    // dosageform: 'tablet', 'capsule', 'powder', ' oral solutions', 'injection'
-    dosageForm: {
+    imageUrl: {
       type: String,
-      required: true,
+      default: "",
     },
-    // common sideffects of the medication
-    sideEffects: {
-      type: [String],
-      required: true,
-    },
-    // 'A', 'B', 'C', 'D', 'X'
-    pregnancyCategory: {
-      type: String,
-      enum: ["A", "B", "C", "D", "X"],
-      required: true,
-    },
+    // Price of the medication
     price: {
       type: Number,
       required: true,
       default: 0,
       min: 0,
     },
-    image: {
+    // Available stock of the medication
+    stock: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    // Category of the medication
+    category: {
       type: String,
       required: true,
+      trim: true,
     },
-    // 'cardiovascular', 'renal', 'dermatology', 'neurology', 'gastroenterology'
-    categoryofAnatomy: {
+    // Dosage form (e.g., tablet, capsule, liquid)
+    dosageForm: {
       type: String,
-      enum: [
-        "cardiovascular",
-        "renal",
-        "dermatology",
-        "neurology",
-        "gastroenterology",
-        "musculoskeletal",
-        "endocrinology",
-        "respiratory",
-        "reproductive",
-        "immune",
-        "general",
-      ],
       required: true,
+      trim: true,
     },
-    // eg 'Antibiotics', 'Antipyretics', 'Analgesics', 'Antacids',
-    categoryOfTherapy: {
+    // Recommended dosage instructions
+    dosageInstructions: {
       type: String,
-      enum: [
-        "Antibiotics",
-        "Antipyretics",
-        "Analgesics",
-        "Antacids",
-        "Antidepressants",
-        "Antihistamines",
-        "Antivirals",
-        "Antifungals",
-        "Hormone Replacement",
-        "Immunosuppressants",
-        "Bronchodilators",
-        "Diuretics",
-        "Statins",
-        "Beta-blockers",
-        "ACE Inhibitors",
-        "Corticosteroids",
-        "Pain Management",
-        "Narcotics",
-        "Vaccines",
-        "Topical Treatments",
-        "Lifestyle Modifications",
-      ],
-      required: true,
+      default: "As prescribed by the doctor",
+      trim: true,
     },
-    countInStock: {
-      type: Number,
-      required: true,
+    // Potential side effects
+    sideEffects: {
+      type: [String],
+      default: [],
     },
-    rating: {
-      type: Number,
-      required: true,
-      min: 0.1,
-      max: 5,
-      default: 3,
+    // Drug interactions with other medications
+    interactions: {
+      type: [String],
+      default: [],
     },
-    numReviews: {
-      type: Number,
-      required: true,
-      default: 1,
+    // Manufacturer of the medication
+    manufacturer: {
+      type: String,
+      default: "",
+      trim: true,
     },
-    isFeatured: {
-      type: Boolean,
-      default: false,
+    // Expiry date of the medication
+    expiryDate: {
+      type: Date,
+      required: true,
+      validate: {
+        validator: function (v) {
+          return v > new Date(); // Expiry date must be in the future
+        },
+        message: (props) => `Expiry date ${props.value} is not valid!`,
+      },
     },
   },
   {
     timestamps: true,
   }
 );
+
+// Create an index on the name field for faster searching
+medicationSchema.index({ name: 1 });
 
 const Medication = mongoose.model("Medication", medicationSchema);
 

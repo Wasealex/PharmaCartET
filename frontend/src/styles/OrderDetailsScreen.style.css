@@ -1,0 +1,29 @@
+/* Order Details Screen Styles */
+.order-details-screen-container {
+  margin: 20px auto;
+  max-width: 800px; /* Center the container */
+}
+
+.order-details-prescription-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+  object-fit: cover; /* Ensure the image fits nicely */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer; /* Indicate it's clickable */
+}
+
+.order-details-modal-image {
+  width: 100%; /* Full width in modal */
+  max-height: 500px; /* Max height to maintain aspect ratio */
+  object-fit: contain; /* Maintain aspect ratio */
+}
+
+.order-details-table th,
+.order-details-table td {
+  text-align: center; /* Center align table text */
+}
+
+.order-details-table {
+  margin-top: 20px; /* Space above the table */
+}
