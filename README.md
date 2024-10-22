@@ -3,7 +3,10 @@
 PharmaCartET is a web application designed using the MERN stack that allows users to buy medications online. It includes features such as user registration and authentication, browsing and searching for medications, adding medications to cart, uploading prescription before making order, checking out and making payments, and an admin dashboard for managing medication inventory, orders and sales.
 
 <p align="center"><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/Logo01.jpg" width="300"/></p>
-## Features
+
+## Features & Screenshots
+
+<p align="center"><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/c:\Users\Wase\Desktop\ALL\ALX\PharmaCart-ET\PharmaCartScreenShot\LandPage.png" width="150"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/Logo01.jpg" width="150"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/Logo01.jpg" width="150"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/Logo01.jpg" width="150"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/Logo01.jpg" width="150"/></p>
 
 - User registration and authentication
 - Browse and search for medications
