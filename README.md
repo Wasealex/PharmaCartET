@@ -6,7 +6,7 @@ PharmaCartET is a web application designed using the MERN stack that allows user
 
 ## Features & Screenshots
 
-<p align="center"><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/LandPage2.png" width="200"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/LandPage.png" width="200"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/LogInPage.png" width="200"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/WelcomePage.png" width="200"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/Admin%20Dashboard.png" width="200"/></p>
+<p><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/LandPage2.png" width="200" height="300"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/LandPage.png" width="200" height="300"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/LogInPage.png" width="200" height="300"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/WelcomePage.png" width="200" height="300"/><img src="https://github.com/Wasealex/PharmaCartET/blob/version05/PharmaCartScreenShot/Admin%20Dashboard.png" width="200" height="300"/></p>
 
 - User registration and authentication
 - Browse and search for medications
